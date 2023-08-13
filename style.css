@@ -1,0 +1,116 @@
+:root {
+    --blue: #1e90ff;
+    --white: #ffffff;
+    --yellow: #fff7db;
+  }
+
+.reveal .slide-number {
+    font-size:24pt;
+    color: #000; 
+    background:none;
+    padding: 1em;
+}
+.reveal .slides { margin: 0; }
+.slides li {
+    padding-bottom: 0.3em;
+}
+.slides h2, .slides h4,.slides h3{
+    text-transform: capitalize;
+}
+.lightup {
+    background-color: var(--yellow);
+    margin: 0.5em;
+    padding: 0.5em;
+    border: 1px solid gray;
+    box-shadow:  5px 5px 5px 1px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    text-align: center;
+}
+
+.slides {
+    text-align: justify;
+}
+
+.slides h3{
+    font-size: 1.2em;
+}
+
+.slides h4 {
+    font-size: 0.8em;
+}
+
+.advisor {
+    padding-top: 1.5em;
+    text-align: right;
+}
+.author {
+    padding-top: 1em;
+}
+.title {
+    padding-top: 4.5em;
+    font-size: 1em;
+}
+
+.logo {
+    display: block;
+    width: 3.5em;
+    height: 4em;
+    position: absolute;
+    left: 0em;
+}
+.logo2 {
+    display: block;
+    width: 7em;
+    height: 4em;
+    position: absolute;
+    float: right;
+    right: 0em;
+}
+
+.logo img, .logo2 img {
+    width: 100%;
+}
+
+.slide-title {
+    display: block;
+    position: relative;
+    top:0;
+}
+
+.slide-content {
+    position: relative;
+    text-align: left;
+    padding-left: 1em;
+}
+
+.imgIntro img {
+    position: absolute;
+}
+
+.underline {
+    text-decoration: underline;
+}
+.eq-medium {
+    display:block;
+    position:relative;
+    left:-5em;
+    transform: scale(0.8);
+}
+
+.fragment.current-visible.visible:not(.current-fragment) {
+    display: none;
+    height:0px;
+    line-height: 0px;
+    font-size: 0px;
+}
+
+.redSquare {
+    display: block;border: .1em solid red;position: absolute;width: 10em;height: 8em;
+}
+.imgContainer {
+    text-align: center;
+}
+.imgContainer img {
+    float: left;
+
+}

@@ -1,0 +1,1451 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Cautious Estimation for Poorly Known Systems</title>
+
+		<link rel="stylesheet" href="../dist/reset.css">
+		<link rel="stylesheet" href="../dist/reveal.css">
+		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				
+				<section data-hide-slide-number="true" data-transition="slide">
+					<div class="logo"><img src="images/unicamp.png"/> </div>
+					<div class="logo2"><img src="images/feec.png"/> </div>
+					<div class="title">
+					<h2>Cautious Estimation for Poorly Known Systems</h2>
+					</div>
+					<div class="author">
+					<h3>Marcos Rogério Fernandes</h3>
+				</div>
+					<div class="advisor">
+					<h4>Supervisor: Prof. Dr. João Bosco R. do Val</h4>
+					<h4>Co-supervisor: Prof. Dr. Rafael F. Souto</h4>
+					<p style="text-align: center;font-size: 0.8em;">August 18, 2023</p>
+				</div>
+
+				</section>
+
+
+				<section>
+					<div class="slide-title">
+					<h2>Outline</h2>
+				</div>
+				<div class="slide-content">
+					<p>&nbsp;</p>
+						<ul>
+<!--Present yourself, present the theme. You can state what your
+throughline is, state what’s the aim of the presentation-->
+
+						<li>Introduction to estimation theory;</li> <!--talk  about estimation problems in general--> <!-- So what?-->
+						<li>Overview of Robust Estimation Problem;</li> <!--talk  about  robust estimation problems in specific-->
+						<li>Objectives of this work;</li> 
+						<li>Main contributions;</li>
+						<li>Applications of this work, and</li> <!-- Now what?-->
+						<li>Main Conclusions.</li>
+					</ul>
+				</div>					
+				</section>
+
+				<section>
+					<div class="slide-title">
+						<h2>Introduction</h2>
+					</div>
+					<div class="slide-content">
+						<p>Estimating an <b>unknown parameter</b> from noisy observations has many
+							applications in Science and Engineering, such as
+								<ul>
+								<li>System Identification;</li> 
+								<li>Artificial Intelligence;</li> 
+								<li>Power Systems forecasting;</li>
+								<li>Telecommunication;</li>
+								<li>Control Systems;</li>
+								<li>etc</li>
+								
+							</p>
+							</div>
+
+				</section>
+
+				<section>
+					<div class="slide-title">
+						<h2>Introduction</h2>
+					</div>
+					<div class="slide-content">
+						<p>The <b>estimation problem</b> consist of obtaining the value of a parameter or state $x\in\mathbb{R}^n$ given a set of measurement that follows a model,</p>
+						$$
+						\tag{1}
+							y=h(x)+\varepsilon
+						$$
+						where $\varepsilon$ stands for the <b>meaurement noise</b>. Accordingly, 
+						$$
+						\tag{2}
+							\hat{x}=\arg\min_x J(y)
+						$$
+							</div>
+
+				</section>
+
+
+				<section>
+					<div class="slide-title">
+						<h2>Introduction</h2>
+					</div>
+					<div class="slide-content">
+						The <b>Least-Squares (LS)</b> error method has become a fundamental tool in
+						applied sciences since its introduction by Gauss.
+						<img style="width: 8em;float: left;" src="images/gauss.jpg"/>
+						<span style="text-align: center;">
+				
+							<p><b>Least-Square Estimator:</b></p>
+							$$
+							\begin{equation}
+							\tag{3}
+							\hat{x}^\text{LS}=\text{arg}\min_x \underbrace{\sum_{k}\|y_k-h(x)\|^2}_{J(y)}
+							\end{equation}
+							$$							
+							<p>For <b>linear models</b> it is convex and has a closed-form solution.</p>
+						</span>
+					</div>
+				</section>
+
+				<section>
+				<div class="slide-title">
+					<h2>Problem</h2>
+				</div>
+				<div class="slide-content">
+				<p>A <b>precise model</b> is usually unavailable in many crucial areas that require estimation
+
+					tools.</p>
+				<p>Examples:</p>
+				<div class="imgIntro">
+					<img class="fragment" style="width: 13em;left:2em;top:4em;" src="images/medicine.jpeg"/>
+					<img class="fragment" style="width: 13em;left:8em;top:5em;" src="images/biology.jpg"/>
+					<img class="fragment" style="width: 13em;left:14em;top:6em;" src="images/economics.jpg"/>
+				</div>
+				<div class="fragment lightup" style="margin-top:4em;">
+					Poorly Known Systems (PKS)
+				</div>
+				</div>
+				</section>
+
+				<section>
+					<div class="slide-title">
+						<h2>Robust Estimation</h2>
+					</div>
+					<div class="slide-content">
+						<b>Uncertain</b> measurement model:							
+						$$	
+						\begin{equation}
+							\tag{4}
+							y=h(x)+\xi+\varepsilon
+							\end{equation}	
+							$$
+						where $\xi$ stands for the <b>meaurement modeling uncertainty</b>.
+						<br>
+						<div class="fragment">
+						<p>Different approaches can be utilized to define $\xi$, for example:</p>
+						<ul>
+							<li><b>Norm bounded</b> uncertainty, i.e., $\xi=E\Delta$ such as $\|\Delta\|\le 1$;</li>
+							<li><b>Polytopic</b> uncertainty, i.e., $\xi=\sum_i \alpha_iE_1$ and $\alpha\in\Lambda$;</li>
+							<li><b>Stochastic</b> uncertainty, i.e., $\xi\sim p(\xi).$</li>
+						</ul>
+					</div>
+					</div>
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>Objectives</h2></div>
+					<div class="slide-content">
+						<div class="fragment lightup">
+							This work aims to develop robust estimation algorithms able to deal with the model imprecision of PKS.
+						</div>
+						<span class="fragment">
+							In special, we employ a <b>Bayesian approach</b>.
+							<center>
+								<img style="width: 15em;height:13em ;position:relative;top:-5em" src="images/priorPosterior.png"/>
+							</center>
+						</span>
+						
+						
+					</div>
+					
+				</section>
+				
+				<section>
+					<div class="slide-title"><h2>Bayesian Approach</h2></div>
+				<div class="slide-content">
+					Assume a prior value $x_0\in\mathbb{R}^n$ where the model is reliable. Thus, the parameter is rewritten as 
+					\[
+					\tag{3}
+					x=x_0+v
+					\]
+					where $v\in\mathbb{R}^n$ is the <b>estimation variation</b>. 
+						    <span class="fragment">Accordingly, the measurement model is
+							$$
+							\begin{equation}
+							\tag{4}
+							y=h(x_0+v)+\xi+\varepsilon
+							\end{equation}
+							$$
+					We assume that: 
+					$ \xi \sim p(\xi|v)$ is a <b>variation-dependent</b> r.v.</span>
+				</div>
+
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>EVIU Approach</h2></div>
+					<div class="slide-content">
+												In particular,
+						<div class="lightup" style="padding: 0; margin: 0;">
+							$$\xi=\varphi(v)\epsilon, \text{ and } \epsilon\sim \mathcal{N}(0,W)\tag{10}$$
+						</div>
+						where the function $v\to \varphi(v)$ is called <b>magnitude function</b>.
+						
+						<div>$\Rightarrow$The result is a <b>Gaussian-variation dependent distribution</b>,
+						$$
+						\tag{5}
+    					p(y|v)=\mathcal{N}(y;h(x_0+v),\tilde{R}(v))
+						$$
+where 
+$\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>EVIU Approach</h2></div>
+					<div class="slide-content" style="text-align: center;">
+						<div class="lightup">Uncertainty increases as $v$ increases.</div>
+						<img src="images/typeII_function.png" style="width: 23em;"/>
+					</div>
+					</section>
+
+				
+
+				<section>
+					<div class="slide-title"><h2>EVIU Approach</h2></div>
+					<div class="slide-content" style="text-align: center;">
+						<div style="position: absolute;transform: scale(0.65) translate(8em,2.5em);">
+$$
+\Rightarrow p(y|v)=\mathcal{N}(y;h(x_0+v),\tilde{R}(v))
+$$
+
+						</div>
+						<div class="lightup">The distribution becomes fat-tail.</div>
+						<img src="images/fat_tail_eviu.png" style="width: 18em;transform: translate(-1em,1em);"/>
+					</div>
+				</section>	
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP</h2></div>
+					<div class="slide-content">
+						Given a <b>prior distribution</b> for the estimation variation, $v\sim p(v)$, we obtain from the <b>Baye's rule</b> the posterior,
+						$$
+						\tag{11}
+						p(v|y_{1:N})=\frac{p(y_{1:N}|v)p(v)}{p(y_{1:N})},
+						$$
+						and the <b>EVIU-MAP</b> associated is 
+						$$
+						\tag{12}
+						v^*=\arg\min_v \underbrace{-\log[p(v|y_{1:N})]}_{\tilde{\ell}(v)}.
+						$$
+					</div>
+				
+				</section>
+
+				
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP</h2></div>
+					<div class="slide-content">
+						
+						By evaluating the <b>negative log-distribution</b>, we obtain
+						<div class="lightup" style="margin-left:0;margin-right:0;padding: 0;">
+							<div style="display: block;width:38em;transform:scale(0.8) translate(-7em,0);">
+						$$ 
+						\begin{equation}
+						\tag{15}
+						\tilde{\ell}(v)=\frac{1}{2}\|\tilde y-h(x_0+v)\|_{\mathcal{\tilde{R}}(v)^{-1}}^2+\frac{1}{2}\|v\|_{P_0^{-1}}^2+\frac{1}{2}\log|I+\mathcal{R}^{-1}\tilde{\Sigma}(v)|
+		\end{equation}
+						$$
+						</div>
+						<div class="fragment redSquare current-visible" style="top:2.5em;left:4em;height:3em;width: 14.2em;"></div>
+						<div class="fragment redSquare current-visible" style="top:2.5em;left:19.3em;height:3em;width: 8.4em;"></div>
+					</div>
+					<div class="fragment" style="transform: scale(0.95);">
+						Set the magnitude function (Type I) to <center>
+						$$ 
+						\varphi(v)=\sigma\sqrt{\text{diag}(|v|)} \Rightarrow \Sigma(v)=\sigma\text{diag}(|v|)\sigma^\intercal\tag{16}
+						$$</center>
+						where $\sigma$ is a <b>tuning parameter</b> of apropriate dimensions.
+					</div>
+					<div class="fragment redSquare current-visible" style="top:8.9em;left:16em;height:2em;width: 10.5em;"></div>
+					<div class="fragment">$\Rightarrow $<b>Linear Models</b>: $h(x)=Hx, H\in\R^{m\times n}$.</div>
+					
+						
+					</div>				
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: Plot</h2></div>
+					<div class="slide-content">
+						
+						<div class="fragment current-visible" style="position: absolute;top:-0.5em;left:5em" data-fragment-index="1">
+							<img src="images/eviu_scalar_cost.png" style="width: 20em;" />
+							<div style="position: absolute;top:0;left: 8.5em;">$v\in\R$</div>
+									</div>
+
+						<div class="fragment" style="position: absolute;top:-0.5em;left:5em" data-fragment-index="2">
+										<img src="images/eviu_map_cost_2d.png" style="width: 18em;" />
+										<div style="position: absolute;top:0;left: 8.5em;">$v\in\R^2$</div>
+						</div>		
+						<div class="fragment lightup" style="position: absolute;top:1em;width: 25em;"><b class="underline" style="color: red;">Non-covex</b> and <b class="underline" style="color: red;">non-differentiable</b>!</div>							
+					</div>				
+				</section>
+
+				
+
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content">
+		<div class="lightup" style="text-align: justify;margin: 0; padding-bottom: 0;transform: scale(0.9);height:14em">
+	Theorem 4.3.1 (Augmented EVIU-MAP)<br>
+The global minimum of $\tilde{\ell}$ is $v^*=u^*-w^*$ where $u^*$ and $w^*$ are the unique solution to the augmented problem, 
+$$
+    \min_{u\ge 0,w\ge 0}  \tilde{\ell}^a(u,w)
+$$
+where 
+<div style="transform: scale(0.8) translate(-3em,-2em);">
+$$ 
+\begin{split}
+\tilde{\ell}^a(u,w)=\frac{1}{2}\|\tilde z-\tilde H (u-w)\|_{(\mathcal{R}+I_N\otimes(\sigma\diag(u+w)\sigma^\trp))^{-1}}^2+\frac{1}{2}\|u-w\|_{P_0^{-1}}^2\\
++\frac{N}{2}\log|I+R^{-1}\sigma\diag(u+w)\sigma^\trp|.
+\end{split}
+$$
+</div>
+</div>
+<div class="fragment redSquare" style="top:9.6em;left:3em;height: 4em;width: 24.7em;"></div>
+					</div>
+
+					
+
+					
+
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<center>
+<div class="fragment current-visible" data-fragment-index="0">
+	<ul>
+		<li>Apply the <b>variable change</b> 
+			<div style="transform: translate(-6em,0);">
+			$$
+			\begin{equation}
+			v=u-w
+			\end{equation}
+			$$ 
+		</div>
+			where $u\ge0$ and $w\ge 0$ are <b>slack-variables</b>;</li>
+		<li>Replace $|u-w|$ by $(u+w)$.
+<div class="lightup" style="transform: scale(0.7) translate(-8em,-1em);">
+$$
+\frac{N}{2}\log|I+R^{-1}\sigma\diag(|u-w|)\sigma^\trp|\Rightarrow \frac{N}{2}\log|I+R^{-1}\sigma\diag(u+w)\sigma^\trp|
+$$
+</div>
+		</li>
+	</ul>
+</div>
+							<div class="fragment current-visible" style="position: absolute;top:1em;left:0em" data-fragment-index="1">
+								<img src="images/augmenteEviuCost0.png" style="width:29em;transform:scale(1.1)" />
+										</div>
+							<div class="fragment current-visible" style="position: absolute;top:1em;left:0.025em" data-fragment-index="2">
+					<img src="images/augmenteEviuCost.png" style="width:30em;transform:scale(1.1)" />
+							</div>
+
+							<div class="fragment current-visible" style="position: absolute;top:1em;left:0em" data-fragment-index="3">
+								<img src="images/augmenteEviuCost2.png" style="width:30em;transform:scale(1.1)" />
+										</div>
+
+										<div class="fragment current-visible" style="position: absolute;top:0em;left:4em" data-fragment-index="4">
+											<img src="images/augmentedCost.gif" style="width:20em" />
+													</div>
+							
+				
+				</center>
+					</div>
+		
+
+				</section>
+
+
+				
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						
+						$\Rightarrow$<b>Intuition</b>
+						<center>
+						<img class="fragment fade-out current-visible" data-fragment-index="1" src="images/minMonCost.png" style="width: 15em;" />
+						<img class="fragment" data-fragment-index="2" src="images/minMonCost-concave.png" style="width: 15em;" />
+					</center>
+					<div class="fragment" data-fragment-index="1" style="width:11em;position: absolute;top:4em;left:20em;transform:scale(0.8)">
+							$\langle u^*,w^*\rangle=0$ <br> $|u^*-w^*|=u^*+w^*$<br>$u^*+w^*=|v^*|$
+					</div>
+					</div>
+				
+
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
+					<div class="slide-content">
+						
+						Let <b>decompose</b> the function into two terms in the form
+						$$ \tag{15}
+						\tilde{\ell}(v)=q(v)+f(v)
+						$$
+						where
+				$$
+						\begin{aligned}
+			   			    q(v)&=\frac{1}{2}\|\tilde z-\tilde H v\|_{(\mathcal{R}+I_N\otimes(\sigma\text{diag}(|v|)\sigma^\intercal))^{-1}}^2+\frac{1}{2}\|v\|_{P_0^{-1}}^2,\\
+							f(v)&=\frac{N}{2}\log|I+R^{-1}\sigma\text{diag}(|v|)\sigma^\intercal|.
+						\end{aligned}
+				$$
+					</div>
+
+				</section>
+
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
+					<div class="slide-content" style="padding-top: 3em;">
+						
+						$\Rightarrow$<b>Proof of Theorem 4.3.1:</b>
+						$$
+						\begin{aligned}
+						&\min_{v\in\R^n} \bigl[\underbrace{q(v)+f(v)}_{\tilde{\ell}(v)}\bigr] \iff & \min_{c\ge 0,v\in\mathbb{R}^n} \bigl[c + f(v)\bigr]\\
+						&&\text{s.t.}\quad \frac{1}{2}c \ge q(v)
+						\end{aligned}
+						$$
+						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:4.5em;left:4em;width: 9em;height: 5em;"></div>
+						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:4.5em;left:17em;width: 10em;height: 8em;"></div>
+					</div>
+				
+
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 2em;">
+						$\Rightarrow$From <b>Schur's Complement</b>,
+						<div style="transform:scale(0.8)">
+						$$\begin{aligned}
+    &\frac{1}{2}c - \frac{1}{2}\|\tilde z-\tilde H v\|_{\mathcal{\tilde{R}}(v)^{-1}}^2-\frac{1}{2}\|v\|_{P_0^{-1}}^2\ge 0\\
+    &\Leftrightarrow \begin{bmatrix}
+    c & (\tilde{z}-\tilde{H}v)^\intercal & v^\intercal \\
+    (\tilde{z}-\tilde{H}v) & \mathcal{R}+I_N\otimes(\sigma\text{diag}(|v|)\sigma^\intercal) & 0 \\
+    v & 0 & P_0
+    \end{bmatrix}\succeq 0
+\end{aligned}$$
+						</div>
+						<div class="fragment" style="transform: translate(0,-1em);">$\Rightarrow $Introduce <b>slack-variables</b> in the form $v=u-w$.</div>
+						<div class="fragment redSquare" style="top:13.1em;left:17.7em;width:5.5em;height:1.5em;transform: translate(0,-1em)"></div>
+					</div>
+	
+
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 2em;">
+						$\Rightarrow$From <b>Schur's Complement</b>,
+						<div style="transform: scale(0.77) translate(-3em);">
+							$$
+						\begin{aligned} 
+    &\frac{1}{2}c - \frac{1}{2}\|\tilde z-\tilde H (u-w)\|_{\mathcal{\tilde{R}}(v)^{-1}}^2-\frac{1}{2}\|u-w\|_{P_0^{-1}}^2\ge 0\\
+    &\Leftrightarrow \begin{bmatrix}
+    c & (\tilde{z}-\tilde{H}(u-w))^\trp & (u-w)^\trp \\
+    (\tilde{z}-\tilde{H}(u-w)) & \mathcal{R}+I_N\otimes(\sigma\diag(|u-w|)\sigma^\trp) & 0 \\
+    u-w & 0 & P_0
+    \end{bmatrix}\succeq 0
+\end{aligned}$$</div>
+<div class="fragment lightup" style="transform:translate(-1em,-1em)"><center>It is not an LMI yet!</div>
+
+				</section>
+
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+						$\Rightarrow$From <b>Triangular Inequality</b>,
+						$$|u-w|\le u+w\tag{25}$$
+						<span class="fragment">
+						Replaces the previous constraint by,
+						<div style="transform: scale(0.8) translate(-2em,-1em);">
+							$$
+						\begin{aligned} 
+    &\begin{bmatrix}
+    c & (\tilde{z}-\tilde{H}(u-w))^\trp & (u-w)^\trp \\
+    (\tilde{z}-\tilde{H}(u-w)) & \mathcal{R}+I_N\otimes(\sigma\diag(u+w)\sigma^\trp) & 0 \\
+    u-w & 0 & P_0
+    \end{bmatrix}\succeq 0
+\end{aligned}$$</div>
+</span>
+<div class="fragment lightup" style="transform:translate(-1em,-2em)"><center>It is an LMI!</div>
+					</div>
+	
+
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+						$\Rightarrow$As result, the <b>augmented problem</b> becomes,
+						<div style="transform: scale(0.8) translate(-4em,-2em);">
+						$$
+						\begin{aligned}
+						
+						\min_{c, u,w} &\quad \frac{1}{2}c+\underbrace{\frac{N}{2}\log[I+R^{-1}\sigma\diag(u+w)\sigma^\trp]}_{f^a(u,w)}\\
+						\text{s.t.} & \begin{bmatrix}
+						c & (\tilde{z}-\tilde{H}(u-w))^\trp & (u-w)^\trp \\
+						(\tilde{z}-\tilde{H}(u-w)) & \mathcal{R}+I_N\otimes(\sigma\diag(u+w)\sigma^\trp) & 0 \\
+						u-w & 0 & P_0
+						\end{bmatrix}\succeq 0,\\
+						&u\ge 0,w\ge 0.
+						\end{aligned}
+						$$
+						<div class="fragment lightup" style="transform: translate(3em,-1em);">
+						$\Rightarrow $This problem has a <b class="underline">unique minimum</b> $(c^*,u^*,w^*)$.
+					</div>
+					</div>
+				</div>	
+
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+
+					$\Rightarrow $Lets show that $|u^*-w^*|=u^*+w^*$.
+<br>				
+				
+					<div class="fragment" data-fragment-index="1">
+						Given the <b>unique minimum</b> $(c^*,u^*,w^*)$ to the <b>augmented problem</b>, and suppose that $|u^*-w^*|&#x3c;u^*+w^*$ (strictly) then by defining 
+</div>
+<div class="fragment redSquare" data-fragment-index="2"  style="top: 4em;left: 12.5em;height:1.5em;width: 10.5em;"></div>
+<div class="fragment" style="transform: scale(0.85) translate(0,-1.5em);">
+	$$
+	\begin{align}
+	v^*&=u^*-w^*,\tag{1a}\\
+	\bar{u}&=\frac{|v^*|+v^*}{2},\tag{1b}\\
+	\bar{w}&=\frac{|v^*|-v^*}{2}.\tag{1c}
+\end{align} 
+$$
+</div>
+					
+				</div>	
+
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+We get,
+<div style="transform: scale(0.85) translate(0em,-2em);">
+	$$
+	\begin{align}
+	\bar{u}-\bar{w}&=\frac{|v^*|+v^*}{2}-\frac{|v^*|-v^*}{2}=v^*,\tag{2a}\\
+	\bar{u}+\bar{w}&=\frac{|v^*|+v^*}{2}+\frac{|v^*|-v^*}{2}=|v^*|,\tag{2b}\\
+	\langle \bar{u},\bar{w}\rangle &= \left(\frac{|v^*|+v^*}{2}\right)^\trp\left(\frac{|v^*|-v^*}{2}\right) =0.\tag{2c}
+	\end{align}
+	$$
+</div>
+<div class="fragment redSquare" style="top: 4.5em;left:6em;height: 2.5em;width: 18.5em;" data-fragment-index="1"></div>
+<div class="fragment redSquare" style="top: 1.9em;left:6em;height: 2.5em;width: 18.5em;" data-fragment-index="2"></div>
+<div class="fragment current-visible" data-fragment-index="2" style="transform: scale(0.95) translate(0,-3em);">
+	which shows that there exist another <b>feasible solution</b> $(c^*,\bar{u},\bar{w})$ that sastifies $|\bar{u}-\bar{w}|=\bar{u}+\bar{w}$ and $\langle\bar{u},\bar{w}\rangle=0$.
+</div>
+<div class="fragment lightup" data-fragment-index="3" style="transform: scale(0.9) translate(0,-3em);">
+	It is a <b class="underline" style="color: red;">contradiction</b> because $\mathbf{1}^\trp (\bar{u}+\bar{w})<\mathbf{1}^\trp (u^*+w^*)$!
+</div>
+<div class="fragment redSquare" style="top: 7.1em;left:6em;height: 2.5em;width: 18.5em;border-color:rgb(1, 251, 1)" data-fragment-index="4"></div>
+
+				
+				</div>	
+				
+				</section>
+
+
+
+
+
+
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<center>
+							<div class="fragment current-visible" style="position: absolute;top:0em;left:5em" data-fragment-index="1">
+								<img src="images/eviu_scalar_cost.png" style="width: 20em;" />
+										</div>
+							<div class="fragment current-visible" style="position: absolute;top:0em;left:5em" data-fragment-index="2">
+					<img src="images/regionAugmented1.png" style="width: 20em;" />
+					<img src="images/arrow.svg" style="position:absolute;width: 4em;left:5.15em;top:10.5em;transform: rotate(-15deg);" />
+							</div>
+							<div class="fragment current-visible" style="position: absolute;left:20em;top:5em;transform: scale(0.7);" data-fragment-index="2" >
+							$$
+							\begin{aligned}
+						\min_{c\ge 0,v\in\mathbb{R}^n} \bigl[c + f(v)\bigr]\\
+						\text{s.t.}\quad \frac{1}{2}c \ge q(v)
+						\end{aligned}
+							$$
+						</div>
+				<div style="position: absolute;top:0em;left:5em" class="fragment current-visible" data-fragment-index="3" >
+					<img src="images/regionAugmented2.png" style="width: 20em;" />
+					<img src="images/arrow.svg" style="position:absolute;width: 4em;left:4.5em;top:9.9em;transform: rotate(-30deg);" />
+				</div>
+				<div class="fragment current-visible" style="position: absolute;left:20em;top:5em;transform: scale(0.7);" data-fragment-index="3" >
+					$$
+					\begin{aligned}
+				\min_{c\ge 0,v\in\mathbb{R}^n} \bigl[c + f(v)\bigr]\\
+				\text{s.t.}\quad \frac{1}{2}c \ge q(v)
+				\end{aligned}
+					$$
+				</div>
+				<div style="position: absolute;top:0em;left:5em" class="fragment current-visible" data-fragment-index="4" >
+					<img src="images/regionAugmented3.png" style="width: 20em;" />
+					<img src="images/arrow.svg" style="position:absolute;width: 4em;left:3.7em;top:9.2em;transform: rotate(-60deg);" />
+				</div>
+				<div class="fragment current-visible" style="position: absolute;left:20em;top:5em;transform: scale(0.7);" data-fragment-index="4" >
+					$$
+					\begin{aligned}
+				\min_{c\ge 0,v\in\mathbb{R}^n} \bigl[c + f(v)\bigr]\\
+				\text{s.t.}\quad \frac{1}{2}c \ge q(v)
+				\end{aligned}
+					$$
+				</div>
+				<div style="position: absolute;top:0em;left:5em" class="fragment current-visible" data-fragment-index="5" >
+					<img src="images/regionAugmented4.png" style="width: 20em;" />
+					<img src="images/arrow.svg" style="position:absolute;width: 4em;left:3.7em;top:9.2em;transform: rotate(-80deg);" />
+				</div>
+				<div class="fragment current-visible" style="position: absolute;left:20em;top:5em;transform: scale(0.7);" data-fragment-index="5" >
+					$$
+					\begin{aligned}
+				\min_{c\ge 0,v\in\mathbb{R}^n} \bigl[c + f(v)\bigr]\\
+				\text{s.t.}\quad \frac{1}{2}c \ge q(v)
+				\end{aligned}
+					$$
+				</div>
+				
+				</center>
+					</div>
+
+
+				</section>
+
+
+
+
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+Therefore, one concludes that the minimum must satisfy
+$$
+\tag{10}
+|u^*-w^*|=u^*+w^*=|v^*|
+$$
+and, consequently, it correspond to the <b>minimum of the original cost function</b>,
+
+				<div class="fragment current-visible" data-fragment-index="2" style="transform: scale(0.8) translate(-4em,-1em);">
+					$$
+					\begin{equation*}
+					\begin{split}
+						\Rightarrow \tilde{\ell}^a(u^*,w^*)=\frac{1}{2}\|\tilde z-\tilde{H}(u^*-w^*)\|_{\mathcal{\tilde{R}}(u^*-w^*)^{-1}}^2+\frac{1}{2}\|u^*-w^*\|_{P_0^{-1}}^2\\+\frac{1}{2}\log|I+\mathcal{R}^{-1}\sigma\diag(u^*+w^*)\sigma^\trp|		
+					\end{split}
+				   \end{equation*}
+				   $$
+				</div>
+				<div class="fragment redSquare current-visible" data-fragment-index="2" style="top:11.7em;left:21.2em;height: 1.5em;width: 4em;"></div>
+
+				<div class="fragment current-visible" data-fragment-index="3" style="transform: scale(0.8) translate(-4em,-1em);">
+					$$
+					\begin{split}
+					\Rightarrow \tilde{\ell}^a(u^*,w^*)=\frac{1}{2}\|\tilde z-\tilde{H}(u^*-w^*)\|_{\mathcal{\tilde{R}}(u^*-w^*)^{-1}}^2+\frac{1}{2}\|u^*-w^*\|_{P_0^{-1}}^2\\+\frac{1}{2}\log|I+\mathcal{R}^{-1}\sigma\diag(|v^*|)\sigma^\trp|
+			   		\end{split}
+					$$
+				</div>
+				<div class="fragment redSquare current-visible" data-fragment-index="3" style="top:11.7em;left:23.4em;height: 1.3em;width: 1.5em;"></div>
+				
+
+
+				</div>	
+				
+				</section>
+
+
+
+				
+
+				
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<div style="position: absolute;top:0em;left:5em" class="fragment current-visible" data-fragment-index="5" >
+							<img src="images/regionAugmented4.png" style="width: 20em;" />
+							<img src="images/arrow.svg" style="position:absolute;width: 4em;left:3.2em;top:9.2em;transform: rotate(-80deg);" />
+						</div>
+						<div style="position: absolute;top:0em;left:3em" class="fragment" data-fragment-index="6" >
+							<img src="images/minimum_original_cost.png" style="width: 25em;" />
+						</div>
+						<div style="position: absolute;top:0em;left:3em" class="fragment" data-fragment-index="7" >
+							<img src="images/minimum_original_cost_arrow.png" style="width: 25em;" />
+						</div>
+					</div>
+		
+
+				</section>
+
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: Corollary</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<div class="lightup" style="text-align: justify;height: 12.3em;transform: translate(0,-.3em);">
+							Corollary 4.3.1.1 <br>The global minimum of
+							$\tilde{\ell}(v)$
+							can be reached by
+solving the problem 
+<div style="transform: scale(0.7) translate(-4em,-3em);">
+$$
+\begin{aligned}
+						
+						\min_{c, u,w} &\quad \frac{1}{2}c+\underbrace{\frac{N}{2}\log[I+R^{-1}\sigma\diag(u+w)\sigma^\trp]}_{f^a(u,w)}\\
+						\text{s.t.} & \begin{bmatrix}
+						c & (\tilde{z}-\tilde{H}(u-w))^\trp & (u-w)^\trp \\
+						(\tilde{z}-\tilde{H}(u-w)) & \mathcal{R}+I_N\otimes(\sigma\diag(u+w)\sigma^\trp) & 0 \\
+						u-w & 0 & P_0
+						\end{bmatrix}\succeq 0,\\
+						&u\ge 0,w\ge 0.
+						\end{aligned}
+$$
+</div>
+						</div>
+						<div class="fragment redSquare" style="top:4.5em;left:7.2em;height: 3.6em;width: 12em;"></div>
+					</div>
+		
+
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<div class="lightup" style="text-align: justify;height: 14.5em;width:32em;transform: translate(-3em,-1.5em) scale(0.85);">
+							Theorem 4.3.4 (Majorization-Minimization Solution).<br>The global minimum of
+							$\tilde{\ell}(v)$ is achieved by the sequence
+							$\{v^j\}_{j=0,1,...}$ generated by the following <b class="underline">convex subproblem</b>
+							<p>&nbsp;</p>
+							<p>&nbsp;</p>
+							<p>&nbsp;</p>
+							<p>&nbsp;</p>
+<div style="position: absolute;transform: scale(0.75) translate(-4em,-12.5em);">
+$$
+\begin{aligned}
+						
+						\min_{c, u,w} &\quad \frac{1}{2}c+\frac{N}{2}\tr[\tilde{R}(v^j)^{-1}\sigma\diag(u+w)\sigma^\trp ]\\
+						\text{s.t.} & \begin{bmatrix}
+						c & (\tilde{z}-\tilde{H}(u-w))^\trp & (u-w)^\trp \\
+						(\tilde{z}-\tilde{H}(u-w)) & \mathcal{R}+I_N\otimes(\sigma\diag(u+w)\sigma^\trp) & 0 \\
+						u-w & 0 & P_0
+						\end{bmatrix}\succeq 0,\\
+						&u\ge 0,w\ge 0.
+						\end{aligned}
+$$
+
+</div>for any $v_0 \in \R^n$ where, for $j \ge 0$, $v^{j+1} = u^∗ − w^∗$ and u∗ and w∗ are the optimal solution
+of the above problem.
+						</div>
+					</div>
+					
+					<div class="fragment redSquare" style="top:6.5em;left:8.2em;height: 1.2em;width: 2.5em;"></div>
+					<div class="fragment redSquare" style="top:12.4em;left:14.5em;height: 1.2em;width: 6.8em;"></div>
+
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+				<center>
+						<img class="fragment current-visible" src="images/logTraceApprox.png" style="width: 25em;transform: translate(0.2em,0);"/>
+						<img class="fragment current-visible" src="images/logTraceApprox0.png" style="width: 19em;"/>
+						<img class="fragment current-visible" src="images/logTraceApprox1.png" style="width: 19em;"/>
+						<img class="fragment current-visible" src="images/logTraceApprox2.png" style="width: 19em;"/>
+						<img class="fragment current-visible" src="images/logTraceApprox3.png" style="width: 19em;"/>
+						<img class="fragment current-visible" src="images/logTraceApprox.gif" style="width: 19em;"/>
+					</center>
+					</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP: MM Optimality</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+		$\Rightarrow $<b>Surrogate function</b>
+		<div style="transform: scale(0.8) translate(-2em,-1em);">
+		$$
+		\begin{equation}
+		\bar{\ell}_{v^j}(v):=q(v)+\frac{N}{2}\tr[\tilde{R}(v^j)^{-1}\Sigma(v)]+a_{v^j}
+		\end{equation}
+		$$
+	</div>
+	<div class="fragment current-visible" style="text-align: center;">
+		<img src="images/MM_algorithm0.png" style="width: 17em;transform: translate(0,-2em);"/>
+	</div>
+	<div class="fragment current-visible" style="text-align: center;">
+		<img src="images/MM_algorithm1.png" style="width: 17em;transform: translate(0,-2em);"/>
+	</div>
+	<div class="fragment current-visible" style="text-align: center;">
+		<img src="images/MM_algorithm2.png" style="width: 17em;transform: translate(0,-2em);"/>
+	</div>
+	<div class="fragment current-visible" style="text-align: center;">
+		<img src="images/MM_algorithm3.png" style="width: 17em;transform: translate(0,-2em);"/>
+	</div>
+	<div class="fragment current-visible" style="text-align: center;">
+		<img src="images/MM_algorithm4.png" style="width: 17em;transform: translate(0,-2em);"/>
+	</div>
+	<div class="fragment current-visible" style="text-align: center;">
+		<img src="images/MM_algorithm5.png" style="width: 17em;transform: translate(0,-2em);"/>
+	</div>
+	<div class="fragment " style="text-align: center;">
+		<img src="images/FixedPointMM.png" style="width: 17em;transform: translate(0,-2em);"/>
+	</div>
+	<div class="fragment lightup" style="position:absolute;top:6em;left:3em;width: 22em;height: 1.5em;">Fixed point!</div></div>
+				</section>
+
+
+		
+				
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP:  MM Optimality</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+						Let $\bar{v}$ be the fixed point, i.e., $\bar{v}=\mathcal{M}(\bar{v})$.
+						<div class="lightup">
+			$0 \in \partial\bar\ell_{\bar v}(\bar v)$ and both gradients $\partial \tilde \ell$ and $\partial \bar \ell$ coincide at $\bar v$.
+		</div>
+		Because,
+		<div style="transform: scale(0.85) translate(-1em,0);" class="fragment">
+		$$
+		\partial_v \log|I+R^{-1}\sigma\diag(|v|)\sigma^\trp|=\partial_v \tr[R(x)^{-1}\sigma\diag(|v|)\sigma^\trp]\Bigl|_{x=v}.
+		$$
+	</div>
+	<span class="fragment">
+			Therefore, one concludes that $\bar{v}$ is also a <b>stationary point</b> of $\tilde{\ell}(v)$.
+		</span>
+		<span class="fragment">
+			$\Rightarrow$ Let $(\bar{u},\bar{w})$ be the <b>slack-variables</b> such as $\bar{v}=\bar{u}-\bar{w}$.
+		</span>
+		</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-MAP:  MM Optimality</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+						To conclude the global optimality, consider the <b>augmented version</b> of both <b>surrogate</b> and <b>original cost</b> function, 
+						<div style="transform: scale(0.9) translate(-1em,-.5em);">
+						$$
+						\tilde{\ell}^a(u,w)=q^a(u,w)+f^a(u,w)
+						$$
+						and 
+						$$
+						\bar{\ell}^a_x(u,w)=q^a(u,w)+g_x^a(u,w)
+						$$
+					</div>
+						<div class="fragment lightup" style="transform: translate(0,-1em);">
+							$\Rightarrow \nabla \tilde{\ell}^a(\bar{u},\bar{w})=\nabla\bar{\ell}^a(\bar{u},\bar{w})=0$
+						</div>
+						</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-Jensen</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
+					$$
+					\begin{align*}
+					\tilde{\ell}(v)&=-\log\left[ p(y_{1:N}|v)p(v)\right] +cte 					
+					\end{align*}
+					$$
+					</div>
+					<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
+						$$
+						\begin{align*}
+						\tilde{\ell}(v)&=-\log\left[ p(y_{1:N}|v)p(v)\right] +cte   \\
+						&=-\log\left[\int p(y_{1:N}|\xi,v)p(v)p(\xi|v)d\xi\right]+cte   
+						\end{align*}
+						$$
+						</div>
+						
+
+						<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
+							$$
+							\begin{align*}
+							\tilde{\ell}(v)&=-\log\left[ p(y_{1:N}|v)p(v)\right] +cte   \\
+							&=-\log\left[\int p(y_{1:N}|\xi,v)p(v)p(\xi|v)d\xi\right]+cte    \\
+								 &=-\log\mathbb{E}\left[p(y_{1:N}|\xi,v)p(v)\right]+cte
+							\end{align*}
+							$$
+							</div>
+
+							<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
+								$$
+								\begin{align*}
+								\tilde{\ell}(v)&=-\log\left[ p(y_{1:N}|v)p(v)\right] +cte   \\
+								&=-\log\left[\int p(y_{1:N}|\xi,v)p(v)p(\xi|v)d\xi\right]+cte    \\
+									 &=-\log\mathbb{E}\left[p(y_{1:N}|\xi,v)p(v)\right]+cte\\
+									 &\neq-\mathbb{E}\left[\log (p(y_{1:N}|\xi,v)p(v))\right]+cte
+								\end{align*}
+								$$
+								</div>		
+								
+								<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
+									$$
+									\begin{align*}
+									\tilde{\ell}(v)&=-\log\left[ p(y_{1:N}|v)p(v)\right] +cte   \\
+									&=-\log\left[\int p(y_{1:N}|\xi,v)p(v)p(\xi|v)d\xi\right]+cte    \\
+										 &=-\log\mathbb{E}\left[p(y_{1:N}|\xi,v)p(v)\right]+cte\\
+										 &\le-\mathbb{E}\left[\log (p(y_{1:N}|\xi,v)p(v))\right]+cte
+									\end{align*}
+									$$
+									</div>
+
+									<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
+										$$
+										\begin{align*}
+										\tilde{\ell}(v)&=-\log\left[ p(y_{1:N}|v)p(v)\right] +cte   \\
+										&=-\log\left[\int p(y_{1:N}|\xi,v)p(v)p(\xi|v)d\xi\right]+cte    \\
+											 &=-\log\mathbb{E}\left[p(y_{1:N}|\xi,v)p(v)\right]+cte\\
+											 &\le-\mathbb{E}\left[\log (p(y_{1:N}|\xi,v)p(v))\right]+cte\\
+											 &=\bar{J}(v)+cte
+										\end{align*}
+										$$
+										</div>
+
+
+				</div>
+					
+			
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>EVIU-Jensen</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+	<div style="transform: scale(0.8) translate(-3em,-1em);">
+	$$
+	\begin{align*}
+\bar{J}(v) &:=
+\frac{1}{2}\sum_{k=1}^N \|z_k-Hv\|^2_{R^{-1}_k}+\frac{1}{2}\|v\|^2_{P_0^{-1}}+\frac{1}{2}\tr[\mathcal{R}^{-1}\tilde{\Sigma}(v)],
+\end{align*}
+$$
+</div>
+<div class="fragment" style="text-align: center;">
+	<img src="images/comparison_eviu_vs_jensen.png" style="width: 15em;transform: translate(0,-3em);"/>
+</div>
+					</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Applications</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+						<ul>
+							<li>Medicine: Tumor Age and Growth Estimation;</li>
+							
+							<li>Finance: Markowitz Portfolio Management;</li>
+							
+							<li>Robust Stochastic filtering.</li>
+						</ul>
+						<div class="imgContainer" style="padding-left:1.5em ;">
+							<center>
+						<img src="images/mice.png" style="width: 7em;"/>
+						<img src="images/efficient_frontier.png" style="width: 10em;"/>
+						<img src="images/eviu_filter_elipses.png" style="width: 8em;"/>
+							</center>
+					</div>
+					
+					</div>
+
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Tumor Age and Growth Estimation</h2></div>
+					<div class="fragment current-visible slide-content" style="padding-top: 0em;">
+					$\Rightarrow $ Gompertz Model
+					$$
+					\begin{equation}
+						V(t)=K\exp\left(\log\left(\frac{V_\text{inj}}{K}\right)\exp(-\beta t)\right)
+					\end{equation}
+					$$
+					$\Rightarrow$ Parameters to be estimated: $$(K\to \text{Capacity},\beta\to\text{Growth rate})$$
+					</div>
+					<div class="fragment slide-content" style="padding-top: 1em;">
+						$\Rightarrow $ Gompertz Model
+						$$
+						\begin{equation}
+							V(t)=K\exp\left(\log\left(\frac{V_\text{inj}}{K}\right)\exp(-\beta (t-t_{\text{ref}}))\right)
+						\end{equation}
+						$$
+						$\Rightarrow$ Parameters to be estimated: $$(K\to \text{Capacity},\beta\to\text{Growth rate},t_{\text{ref}} \to \text{age})$$
+						</div>
+						<div class="fragment current-visible lightup">Few measurements available to an individual.</div>
+						<div class="fragment lightup">Mixed-effect framework together with the EVIU-Jensen!</div>
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>Mixed-Effect Framework
+					</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<div class="lightup" style="text-align: justify;">
+							Individuals within the population depend on two types of unknown effects: <b class="underline">fixed</b> (i.e., common to all individuals)
+							 and <b class="underline">random</b> (i.e., particular to each population subject).</div>
+							 <p>&nbsp;</p>
+							 <div class="fragment">
+						$$
+						\begin{equation}
+						\log(\phi_i)=\log(\mu)+\eta_i,\quad \eta_i\sim\mathcal{N}(0,\Diag(\omega))
+					\end{equation}
+						$$
+					</div>
+					<div class="fragment current-visible redSquare" style="top:7.8em;left:3.5em;width: 11.5em;height:1.3em;border-color: green;"></div>
+					<div class="fragment current-visible redSquare" style="top:7.8em;left:9em;width: 3.5em;height:1.3em;">
+					<img src="images/redArrow.svg" style="transform: scale(2) translate(0.8em,0.7em);"/>
+					<div style="color: red;width: 10em;transform: translate(-0.5em,1em);">Fixed effect</div>
+					</div>
+
+					<div class="fragment current-visible redSquare" style="top:7.8em;left:13.6em;width: 1.5em;height:1.3em;">
+						<img src="images/redArrow.svg" style="transform: scale(2) translate(0.3em,0.7em);"/>
+						<div style="color: red;width: 10em;transform: translate(-2em,1em);">Random effect</div>
+						</div>
+						<div class="fragment">
+$$
+\omega \to \text{Variability}
+$$
+
+						</div>
+					</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Prior Model from the Population</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<center>
+						<img class="fragment current-visible" src="images/population_model_data.png" style="width: 18em;"/>
+						<img class="fragment" src="images/population_model.png" style="width: 18em;"/>
+					</center>
+					</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Individual Estimation</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<center>
+						<img class="fragment current-visible" src="images/population_model_data_ind.png" style="width: 18em;"/>
+						<img class="fragment current-visible" src="images/population_model_data_ind_prior.png" style="width: 18em;"/>
+						<img class="fragment current-visible" src="images/population_model_data_ind_posterior.png" style="width: 18em;"/>
+						<img class="fragment current-visible" src="images/population_model_data_ind_posterior2.png" style="width: 18em;"/>
+						<img class="fragment" src="images/error_boxplot.png" style="width: 19em;"/>
+					</center>
+					</div>
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>Markowitz Portfolio</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<div class="fragment lightup current-visible">
+						$$
+						\begin{equation}
+						\begin{split}
+						\max_x \quad & \left(\mu^\trp x -\frac{\lambda}{2} x^\trp \Psi x\right)\\
+						\text{s.t.} \quad&  \mathbf{1}^\trp x = 1,\\ \quad &x_i\ge 0~ \forall~ i=1,\ldots, M
+						\end{split}
+						\end{equation}
+						$$
+					</div>
+					<div class="lightup fragment current-visible">
+						$$
+						\begin{equation}
+						\begin{split}
+						\min_x \quad & \left(-\mu^\trp x +\frac{\lambda}{2} x^\trp \Psi x\right)\\
+						\text{s.t.} \quad&  \mathbf{1}^\trp x = 1,\\ \quad &x_i\ge 0~ \forall~ i=1,\ldots, M
+						\end{split}
+						\end{equation}
+						$$
+					</div>
+
+					<div class="lightup fragment">
+						$$
+						\begin{equation}
+						\begin{split}
+						\min_x \quad & \frac{1}{2}\|\mu-\lambda \Psi x\|_{(\lambda\Psi)^{-1}}^2\\
+						\text{s.t.}\quad & \mathbf{1}^\trp x =1\\
+						&x_i\ge0~\forall~i=1,\ldots,M
+						\end{split}
+						\end{equation}
+						$$
+					</div>
+					<div class="fragment" style="transform: scale(0.8) translate(0,-1em);">
+						$\Rightarrow $<b>Virtual Measurement</b>
+						$$
+						\begin{equation*}
+    y:=\begin{bmatrix}
+    \mu\\
+    1\\
+    \end{bmatrix}
+    =\begin{bmatrix}
+    \lambda\Psi x \\
+    \mathbf{1}^\trp x
+    \end{bmatrix}+\varepsilon,\quad \varepsilon\sim\mathcal{N}\left(0,\begin{bmatrix}\lambda\Psi & 0  \\
+    0 & k_1  \\
+    \end{bmatrix}\right)
+\end{equation*}
+$$
+					</div>
+					<div class="fragment fade-down redSquare" style="top:11.3em;left:5em;height:2.9em"></div>
+						</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						$$
+						\begin{equation}
+						y:=\begin{bmatrix}
+						\mu\\
+						1\\
+						\end{bmatrix}
+						=\begin{bmatrix}
+						\Psi x +\sigma\sqrt{\diag(|v|)}\epsilon\\
+						\mathbf{1}^\trp x
+						\end{bmatrix}+\varepsilon
+\end{equation}
+$$
+					</div>
+					<div class="fragment fade-down redSquare" style="top:2.6em;left:15.3em;width:7em;height:2em"></div>
+					<div class="fragment" style="text-align: justify;">
+						Assuming a "prior portfolio" $x_0$ (e.g. GMRP), we state
+						<div class="lightup" style="transform: scale(0.8) translate(-4.5em,-1em);width: 35em;">
+$$
+v^*=\arg\min_{v\in\mathcal{V}}\Bigl(\frac{1}{2}\|z-\Psi v\|^2_{(\Psi+\sigma\diag(|v|)\sigma^\trp)^{-1}}+\frac{1}{2}\|v\|^2_{P_0^{-1}}+\frac{1}{2k_1}\|\tau-\mathbf{1}^\trp v\|^2\\+\frac{1}{2}\log|I+R^{-1}\sigma\diag(|v|)\sigma^\trp|\Bigr)
+$$
+</div>
+					</div>
+				</section>
+
+
+
+
+				<section>
+					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+						Solving using <b>Majorization-Minimization</b>:
+						<div class="lightup" style="transform: scale(0.7) translate(-8.8em,-3em);width: 38.5em;">
+					$$
+					\begin{equation*}
+					\begin{aligned}
+						\min_{c, u, w} & \quad \frac{1}{2}c+\frac{1}{2}\tr[\tilde{R}(v^j)^{-1}\sigma\diag(u+w)\sigma^\trp]\\
+						\text{s.t.} & \begin{bmatrix}
+						c & (z-\Psi(u-w))^\trp & (u-w)^\trp &\mathbf{1}^\trp (u-w) \\
+						(z-\Psi(u-w)) & \Psi+\sigma\diag(u+w)\sigma^\trp & 0 & 0 \\
+						u-w & 0 & P_0 & 0\\
+						\mathbf{1}^\trp (u-w) & 0 & 0 & k_1
+						\end{bmatrix}\succeq 0,\\
+						& u-w+x_0\ge 0, u\ge0, w\ge 0
+						\end{aligned}
+					\end{equation*}
+					$$
+				</div>
+					</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+						<center>
+						<img class="fragment current-visible" src="images/efficient_frontier_eviu.png" style="width: 17em;"/>
+						<img class="fragment" src="images/robustPortfolio.gif" style="width: 18em;"/>
+					</center>
+					</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Robust Stochastic Filtering</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+					<div style="transform: scale(0.9) translate(-1em,0);">
+					$$
+					\begin{equation*}
+					\begin{aligned}
+						\hat{x}_{k|k}&=\arg\min_x-\log[p(x_k|y_{1:k})]\\
+						&=\arg\min_x\left( \frac{1}{2}\|y_k-Hx_k\|^2_{R_k^{-1}}+\frac{1}{2}\|x_k-\hat{x}_{k|k-1}\|^2_{P_{k|k-1}^{-1}}\right)
+						\end{aligned}
+					\end{equation*}
+					$$
+				</div>
+				<div class="fragment lightup" style="transform: scale(0.8) translate(-5.6em,-1em);width: 34em;">
+					Measurement model:
+					$$
+					\begin{align*}
+						y_{k}&=Hx_k+\sigma_y\sqrt{\diag(|x_k-\hat{x}_{k|k-1}|)}\epsilon_k^y +\varepsilon_k
+					\end{align*}
+					$$
+					where $\hat{x}_{k|k-1}$ is the prior from the <b class="underline">dynamic model</b>.
+				</div>
+				<div class="fragment fade-up redSquare" style="top:8.5em;left:10.5em;width: 11em;height: 2em;"></div>
+					</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Robust Stochastic Filtering</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						
+							<div style="text-align: center;"  class="fragment current-visible">
+							<img src="images/eviu_filter_elipses0.png" style="width: 15em;"/>
+						</div>
+						<div style="text-align: center;"  class="fragment current-visible">
+							<img src="images/eviu_filter_elipses1.png" style="width: 15em;"/>
+							</div>	
+							
+							<div style="text-align: center;"  class="fragment current-visible">
+								<img src="images/eviu_filter_elipses3.png" style="width: 15em;"/>
+								</div>	
+
+								<div style="text-align: center;"  class="fragment current-visible">
+									<img src="images/eviu_filter_elipses4.png" style="width: 15em;"/>
+									</div>	
+
+									<div style="text-align: center;"  class="fragment current-visible">
+										<img src="images/eviu_filter_elipses5.png" style="width: 15em;"/>
+										</div>	
+					</div>
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Robust Stochastic Filtering</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+					
+				<div class="fragment current-visible lightup" style="transform: scale(0.8) translate(0,-3em);text-align: left;height: 17em;">
+	
+					$$
+					\begin{align}
+						\hat{x}_{k|k-1}&=A\hat{x}_{k-1|k-1},\\
+						P_{k|k-1}&=AP_{k-1|k-1}A^\trp+Q_{k-1},\\
+						v^*&=\arg\min_v \tilde\ell(v),\\
+						\hat{x}_{k|k}&=\hat{x}_{k|k-1}+v^*,\\
+						P_{k|k}&=-[\nabla^2\log[p(v|y_{1:k})]]^{-1}\Bigl|_{v=v^*}.
+					\end{align}
+					$$
+					where 
+					<div style="transform: scale(0.8) translate(-3em,-1em);">
+					$$
+					\begin{equation*}
+					\tilde\ell(v)=\frac{1}{2}\|z_k-Hv\|^2_{\tilde{R}(v)^{-1}}+\frac{1}{2}\|v\|^2_{P_{k|k-1}^{-1}}+\frac{1}{2}\log(|I+R_k^{-1}\Sigma_y(v)|)
+				\end{equation*}
+					$$
+				</div>
+				</div>
+				
+					</div>
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>Conclusions</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+									<ul>
+										<li class="fragment">Novel framework for cautious estimation from a
+											Bayesian perspective;</li>
+
+										<li class="fragment">Variation-dependent noise structure to
+											account for the model uncertainty;</li>	
+
+											<li class="fragment">Inaction
+												region depending on measurement residue;</li>
+
+												<li class="fragment"> Optimal global
+													solution to the problem;</li>
+
+													<li class="fragment">Relaxed version using Jensen's inequality;</li>
+
+													<li class="fragment">Applications in medicine, finance and stochastic filtering;</li>
+
+													<li class="fragment">New pathways to approach
+														multiplicative noise structures.</li>
+									</ul>
+					</div>
+				</section>
+
+				<section>
+					<div class="slide-title"><h2>Publications</h2></div>
+					<div class="slide-content" style="text-align: justify;padding-top: 0em;transform: scale(0.75) translate(-6em,-1em);width: 35em;">
+<ul>
+	<li class="fragment">      
+		[1] M. R. Fernandes, R. F. Souto and J. B. R. do Val, <b>"Robust Mixed-Effect Estimation of Tumor Growth and Age Based on Gompertz Model"</b>, in IEEE Control Systems Letters, vol. 7, pp. 31-36, 2022, doi: 10.1109/LCSYS.2022.3186611.
+	</li>
+	<li class="fragment">
+		[2] M. R. Fernandes, J. B. R. do Val and R. F. Souto, <b>"Robust Estimation and Filtering for Poorly Known Models"</b>, in IEEE Control Systems Letters, vol. 4, no. 2, pp. 474-479, April 2020, doi: 10.1109/LCSYS.2019.2951611.
+	</li>
+</ul>
+</div>
+<div class="fragment" style="transform: translate(1em,-1.5em);text-align: justify; width: 26em;">Moreover, this work's main contributions are incorporated in a <b>full paper</b> to be submitted in a periodic.</div>
+			<div style="text-align: justify;padding-top: 0em;transform: scale(0.75) translate(-5em,-2em);width: 35em;">
+					<ul>
+						<li class="fragment">
+							[3] M. R. Fernandes, G. M. Magalhães, Y. Cáceres and J. B. R. do Val, <b>"GNSS/MEMS-INS Integration for Drone Navigation Using EKF on Lie Groups,"</b> in IEEE Transactions on Aerospace and Electronic Systems, <br>doi: 10.1109/TAES.2023.3290575.
+						</li>
+					</ul>									
+				</div>	
+				</section>
+
+
+				<section>
+					<div class="slide-title"><h2>Future works</h2></div>
+					<div class="slide-content" style="padding-top: 1em;font-size: 95%;">
+						<ul>
+   <li class="fragment">
+							<b>Different applications</b> of the cautious estimation framework in medicine and economic or financial problems;
+						</li>
+    <li class="fragment"> Extensions to <b>different multiplicative noise structures</b>, e.g. asymmetric magnitude functions;
+	</li>
+
+    <li class="fragment"> <b>Robust Control problems</b> using multiplicative noise structures;
+	</li>
+
+    <li class="fragment"> <b>Learning algorithms</b> with scarce measurements;
+	</li>
+
+    <li class="fragment"> Cautious Bayesian <b>filtering applications</b>;
+	</li>
+
+    <li class="fragment">Evaluation of <b>computational aspects</b> of the solution; and
+	</li>
+
+    <li class="fragment"> <b>Statistical Properties</b> of the EVIU estimator.
+	</li>
+</ul>
+					</div>
+				</section>
+
+			
+
+
+				<section>
+					<div class="slide-title"><h2>Acknowledgements</h2></div>
+					<div class="slide-content" style="padding-top: 0em;padding-left: 1em;">
+						<div class="fragment" style="text-align: center;transform: translate(1em,-1em);">
+									<img src="images/feec_big.png" style="width: 15em;">
+									<img src="images/capes.png" style="width: 11em;transform: translate(-1em,1em);">
+					   </div>
+					   <div class="fragment"  style="text-align: center;">
+						<span><b>Supervisor (Prof. João Bosco)</b> <br>and <b>co-supervisor (Prof. Rafael Souto)</b>.</span>
+						<Br><br>
+						<span class="fragment" ><b>Family</b> and <b>friends</b> that directly or indirectly helped me to be here today.</span>
+					   </div>
+					</div>
+				</section>
+
+			
+
+
+
+				<!------------------------>
+			</div>
+		</div>
+
+		
+
+		<script src="../dist/reveal.js"></script>
+		<script src="../plugin/notes/notes.js"></script>
+		<script src="../plugin/markdown/markdown.js"></script>
+		<script src="../plugin/highlight/highlight.js"></script>
+		<script src="../plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				width: 1244,
+  				height: 700,
+				center:false,
+				katex: {
+    version: 'latest',
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+   ],
+   ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+   macros: {
+	"\\R": "\\mathbb{R}",
+	"\\trp": "\\intercal",
+	"\\diag": "\\text{diag}",
+	"\\Diag": "\\text{Diag}",
+	"\\tr": "\\text{tr}"
+   }
+ },
+				hash: true,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ],
+				controls: false,
+				progress: false,
+				transition: 'none'
+			});
+		//////remove slide number from first page (data-hide-slide-number="true")
+	    Reveal.addEventListener('slidechanged', (event) => {
+  		const isSnOn = (event.currentSlide.dataset.hideSlideNumber !== 'true');
+  		Reveal.configure({ slideNumber: isSnOn });
+		});
+		</script>
+	</body>
+</html>
+
