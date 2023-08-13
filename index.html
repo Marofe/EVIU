@@ -187,14 +187,14 @@ throughline is, state what’s the aim of the presentation-->
 				<div class="slide-content">
 					Assume a prior value $x_0\in\mathbb{R}^n$ where the model is reliable. Thus, the parameter is rewritten as 
 					\[
-					\tag{3}
+					\tag{5}
 					x=x_0+v
 					\]
 					where $v\in\mathbb{R}^n$ is the <b>estimation variation</b>. 
 						    <span class="fragment">Accordingly, the measurement model is
 							$$
 							\begin{equation}
-							\tag{4}
+							\tag{6}
 							y=h(x_0+v)+\xi+\varepsilon
 							\end{equation}
 							$$
@@ -209,13 +209,13 @@ throughline is, state what’s the aim of the presentation-->
 					<div class="slide-content">
 												In particular,
 						<div class="lightup" style="padding: 0; margin: 0;">
-							$$\xi=\varphi(v)\epsilon, \text{ and } \epsilon\sim \mathcal{N}(0,W)\tag{10}$$
+							$$\xi=\varphi(v)\epsilon, \text{ and } \epsilon\sim \mathcal{N}(0,W)\tag{7}$$
 						</div>
 						where the function $v\to \varphi(v)$ is called <b>magnitude function</b>.
 						
 						<div>$\Rightarrow$The result is a <b>Gaussian-variation dependent distribution</b>,
 						$$
-						\tag{5}
+						\tag{8}
     					p(y|v)=\mathcal{N}(y;h(x_0+v),\tilde{R}(v))
 						$$
 where 
@@ -254,12 +254,12 @@ $$
 					<div class="slide-content">
 						Given a <b>prior distribution</b> for the estimation variation, $v\sim p(v)$, we obtain from the <b>Baye's rule</b> the posterior,
 						$$
-						\tag{11}
+						\tag{9}
 						p(v|y_{1:N})=\frac{p(y_{1:N}|v)p(v)}{p(y_{1:N})},
 						$$
 						and the <b>EVIU-MAP</b> associated is 
 						$$
-						\tag{12}
+						\tag{10}
 						v^*=\arg\min_v \underbrace{-\log[p(v|y_{1:N})]}_{\tilde{\ell}(v)}.
 						$$
 					</div>
@@ -276,7 +276,7 @@ $$
 							<div style="display: block;width:38em;transform:scale(0.8) translate(-7em,0);">
 						$$ 
 						\begin{equation}
-						\tag{15}
+						\tag{11}
 						\tilde{\ell}(v)=\frac{1}{2}\|\tilde y-h(x_0+v)\|_{\mathcal{\tilde{R}}(v)^{-1}}^2+\frac{1}{2}\|v\|_{P_0^{-1}}^2+\frac{1}{2}\log|I+\mathcal{R}^{-1}\tilde{\Sigma}(v)|
 		\end{equation}
 						$$
@@ -287,7 +287,7 @@ $$
 					<div class="fragment" style="transform: scale(0.95);">
 						Set the magnitude function (Type I) to <center>
 						$$ 
-						\varphi(v)=\sigma\sqrt{\text{diag}(|v|)} \Rightarrow \Sigma(v)=\sigma\text{diag}(|v|)\sigma^\intercal\tag{16}
+						\varphi(v)=\sigma\sqrt{\text{diag}(|v|)} \Rightarrow \Sigma(v)=\sigma\text{diag}(|v|)\sigma^\intercal\tag{12}
 						$$</center>
 						where $\sigma$ is a <b>tuning parameter</b> of apropriate dimensions.
 					</div>
@@ -421,7 +421,7 @@ $$
 					<div class="slide-content">
 						
 						Let <b>decompose</b> the function into two terms in the form
-						$$ \tag{15}
+						$$ \tag{13}
 						\tilde{\ell}(v)=q(v)+f(v)
 						$$
 						where
@@ -501,7 +501,7 @@ $$
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						$\Rightarrow$From <b>Triangular Inequality</b>,
-						$$|u-w|\le u+w\tag{25}$$
+						$$|u-w|\le u+w\tag{14}$$
 						<span class="fragment">
 						Replaces the previous constraint by,
 						<div style="transform: scale(0.8) translate(-2em,-1em);">
@@ -560,9 +560,9 @@ $$
 <div class="fragment" style="transform: scale(0.85) translate(0,-1.5em);">
 	$$
 	\begin{align}
-	v^*&=u^*-w^*,\tag{1a}\\
-	\bar{u}&=\frac{|v^*|+v^*}{2},\tag{1b}\\
-	\bar{w}&=\frac{|v^*|-v^*}{2}.\tag{1c}
+	v^*&=u^*-w^*,\tag{15a}\\
+	\bar{u}&=\frac{|v^*|+v^*}{2},\tag{15b}\\
+	\bar{w}&=\frac{|v^*|-v^*}{2}.\tag{15c}
 \end{align} 
 $$
 </div>
@@ -579,9 +579,9 @@ We get,
 <div style="transform: scale(0.85) translate(0em,-2em);">
 	$$
 	\begin{align}
-	\bar{u}-\bar{w}&=\frac{|v^*|+v^*}{2}-\frac{|v^*|-v^*}{2}=v^*,\tag{2a}\\
-	\bar{u}+\bar{w}&=\frac{|v^*|+v^*}{2}+\frac{|v^*|-v^*}{2}=|v^*|,\tag{2b}\\
-	\langle \bar{u},\bar{w}\rangle &= \left(\frac{|v^*|+v^*}{2}\right)^\trp\left(\frac{|v^*|-v^*}{2}\right) =0.\tag{2c}
+	\bar{u}-\bar{w}&=\frac{|v^*|+v^*}{2}-\frac{|v^*|-v^*}{2}=v^*,\tag{16a}\\
+	\bar{u}+\bar{w}&=\frac{|v^*|+v^*}{2}+\frac{|v^*|-v^*}{2}=|v^*|,\tag{16b}\\
+	\langle \bar{u},\bar{w}\rangle &= \left(\frac{|v^*|+v^*}{2}\right)^\trp\left(\frac{|v^*|-v^*}{2}\right) =0.\tag{16c}
 	\end{align}
 	$$
 </div>
@@ -679,7 +679,7 @@ We get,
 					<div class="slide-content" style="padding-top: 1em;">
 Therefore, one concludes that the minimum must satisfy
 $$
-\tag{10}
+\tag{17}
 |u^*-w^*|=u^*+w^*=|v^*|
 $$
 and, consequently, it correspond to the <b>minimum of the original cost function</b>,
@@ -825,6 +825,7 @@ of the above problem.
 		<div style="transform: scale(0.8) translate(-2em,-1em);">
 		$$
 		\begin{equation}
+		\tag{18}
 		\bar{\ell}_{v^j}(v):=q(v)+\frac{N}{2}\tr[\tilde{R}(v^j)^{-1}\Sigma(v)]+a_{v^j}
 		\end{equation}
 		$$
@@ -1018,6 +1019,7 @@ $$
 					$\Rightarrow $ Gompertz Model
 					$$
 					\begin{equation}
+					\tag{19}
 						V(t)=K\exp\left(\log\left(\frac{V_\text{inj}}{K}\right)\exp(-\beta t)\right)
 					\end{equation}
 					$$
@@ -1027,6 +1029,7 @@ $$
 						$\Rightarrow $ Gompertz Model
 						$$
 						\begin{equation}
+						\tag{20}
 							V(t)=K\exp\left(\log\left(\frac{V_\text{inj}}{K}\right)\exp(-\beta (t-t_{\text{ref}}))\right)
 						\end{equation}
 						$$
@@ -1046,9 +1049,9 @@ $$
 							 <p>&nbsp;</p>
 							 <div class="fragment">
 						$$
-						\begin{equation}
+						\begin{equation*}
 						\log(\phi_i)=\log(\mu)+\eta_i,\quad \eta_i\sim\mathcal{N}(0,\Diag(\omega))
-					\end{equation}
+					\end{equation*}
 						$$
 					</div>
 					<div class="fragment current-visible redSquare" style="top:7.8em;left:3.5em;width: 11.5em;height:1.3em;border-color: green;"></div>
@@ -1098,9 +1101,10 @@ $$
 				<section>
 					<div class="slide-title"><h2>Markowitz Portfolio</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
-						<div class="fragment lightup current-visible">
+						<div class="fragment lightup current-visible" data-fragment-index="1">
 						$$
 						\begin{equation}
+						\tag{21}
 						\begin{split}
 						\max_x \quad & \left(\mu^\trp x -\frac{\lambda}{2} x^\trp \Psi x\right)\\
 						\text{s.t.} \quad&  \mathbf{1}^\trp x = 1,\\ \quad &x_i\ge 0~ \forall~ i=1,\ldots, M
@@ -1108,9 +1112,10 @@ $$
 						\end{equation}
 						$$
 					</div>
-					<div class="lightup fragment current-visible">
+					<div class="lightup fragment current-visible" data-fragment-index="2">
 						$$
 						\begin{equation}
+						\tag{22}
 						\begin{split}
 						\min_x \quad & \left(-\mu^\trp x +\frac{\lambda}{2} x^\trp \Psi x\right)\\
 						\text{s.t.} \quad&  \mathbf{1}^\trp x = 1,\\ \quad &x_i\ge 0~ \forall~ i=1,\ldots, M
@@ -1119,9 +1124,10 @@ $$
 						$$
 					</div>
 
-					<div class="lightup fragment">
+					<div class="lightup fragment" data-fragment-index="3">
 						$$
 						\begin{equation}
+						\tag{23}
 						\begin{split}
 						\min_x \quad & \frac{1}{2}\|\mu-\lambda \Psi x\|_{(\lambda\Psi)^{-1}}^2\\
 						\text{s.t.}\quad & \mathbf{1}^\trp x =1\\
@@ -1130,7 +1136,7 @@ $$
 						\end{equation}
 						$$
 					</div>
-					<div class="fragment" style="transform: scale(0.8) translate(0,-1em);">
+					<div class="fragment" data-fragment-index="4" style="transform: scale(0.8) translate(0,-1em);">
 						$\Rightarrow $<b>Virtual Measurement</b>
 						$$
 						\begin{equation*}
@@ -1147,7 +1153,7 @@ $$
 \end{equation*}
 $$
 					</div>
-					<div class="fragment fade-down redSquare" style="top:11.3em;left:5em;height:2.9em"></div>
+					<div class="fragment fade-down redSquare" data-fragment-index="4" style="top:11.3em;left:5em;height:2.9em"></div>
 						</div>
 				</section>
 
@@ -1157,6 +1163,7 @@ $$
 					<div class="slide-content" style="padding-top: 0em;">
 						$$
 						\begin{equation}
+						\tag{24}
 						y:=\begin{bmatrix}
 						\mu\\
 						1\\
