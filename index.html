@@ -248,6 +248,9 @@ In special, combined with the stochastic representation of the modeling uncertai
 				
 				<section>
 					<aside class="notes">
+						To this end, we assume we have a prior value X0 available. In this way, we rewrite our parameter X  in the form given in equation five. X is now composed of the prior value X0 plus some correction or estimation variation. And hereafter, we are interested in obtaining the best correction or estimation variation of this prior value X0. 
+Accordingly, the measurement model is in this form shown in equation six.
+In addition, we also assume that the modeling uncertainty is a variation-dependent random variable.
 					</aside>
 
 					<div class="slide-title"><h2>Bayesian Approach</h2></div>
@@ -278,20 +281,23 @@ In special, combined with the stochastic representation of the modeling uncertai
 
 				<section>
 					<aside class="notes">
+						To illustrate why we choose a variation-dependent random variable, consider a nonlinear map, as shown in this figure. Suppose we have a prior and an approximated model for this nonlinear function that is reliable only near this prior value. So as we go away from the prior, this approximated model becomes less and less reliable. To account for this loss of accuracy, we add this variation-dependent noise in such a way that now the precision of the model depends on the variation magnitude.
+In other words, the uncertainty increases as v increases, and this is what we call the EVIU approach.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU Approach</h2></div>
 					<div class="slide-content" style="text-align: center;">
 						<img class="fragment current-visible" src="images/typeI_function.png" style="width: 15em;"/>
-						<img class="fragment current-visible" src="images/typeI_function2.png" style="width: 15em;"/>
 						<img class="fragment current-visible" src="images/typeII_function3.png" style="width: 15em;"/>
 						<img class="fragment" src="images/typeII_function5.png" style="width: 15em;"/>
-						<div class="fragment lightup" style="position: absolute;top:5em;width: 25em;">Uncertainty increases as $v$ increases.</div>
+						<div class="fragment lightup" style="position: absolute;top:9em;width: 25em;">Uncertainty increases as $v$ increases.</div>
 					</div>
 					</section>
 
 				<section>
 					<aside class="notes">
+						In particular, we define this extra noise as indicated here in equation 7. The xi is a Gaussian noise modulated by a magnitude function phi. This magnitude function allows us to create different uncertainty profiles for the model. 
+An important aspect of this construction is that the measurement distribution that results from including this extra noise also has a Gaussian format. But, now, the covariance matrix becomes a function of v, as stated here in equation 8.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU Approach</h2></div>
@@ -319,6 +325,7 @@ $\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
 
 				<section>
 					<aside class="notes">
+						In this work, we choose a particular type of magnitude function as indicated here; the function phi is a parameter sigma multiplied by the square root of the absolute function. This results in the covariance matrix shown here.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU Approach</h2></div>
@@ -345,6 +352,7 @@ $\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
 
 				<section>
 					<aside class="notes">
+						Moreover, if we plot this distribution, we notice that she becomes fat tail! This fact is quite interesting because fat tail distributions indeed improve robustness.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU Approach</h2></div>
@@ -358,6 +366,8 @@ $\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
 
 				<section>
 					<aside class="notes">
+						Once the measurement model is established and given a prior distribution, we use Baye's rule to obtain the posterior distribution.
+And associated with this posterior distribution, we define the EVIU-MAP estimator that consists of minimizing the negative log of the posterior distribution as indicated here in equation 10.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP</h2></div>
@@ -383,6 +393,9 @@ $\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
 				
 				<section>
 					<aside class="notes">
+						By evaluating this negative log-distribution, we obtain the cost function given in equation eleven. This cost function is formed by a quadratic part plus a logarithm part.<br><BR>
+
+Let us focus on the case of the linear measurement model. 
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP</h2></div>
@@ -411,6 +424,13 @@ $\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
 
 				<section>
 					<aside class="notes">
+
+						Here is a plot of this cost function for a scalar case.
+And here, we have the plot for a two-dimensional case. 
+Note that this cost function is non-differentiable because of the adoption of the absolute value function for the magnitude function, and it is also non-convex.
+The non-convexity comes from the fact that the posterior distribution might have multiple modes, as in this case illustrated here. So, we might have multiple local maximos in the posterior distribution and, consequently, multiple minimums in the negative log distribution shown before.
+<br><br>
+Thankfully, we can solve this problem in two ways, as I will describe next. 
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: Plot</h2></div>
@@ -436,6 +456,9 @@ $\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
 
 				<section>
 					<aside class="notes">
+						The first solution involves applying a variable change and introducing non-negative slack variables u and w, as shown here. It consists in mapping this problem into an augmented space by introducing these non-negative slack variables u and w. So, the first step to solve this problem is to replace the variable v with the difference of these slack variables. 
+The second step is to replace the absolute value of the difference of these slack variables with the summation. For instance, in the log part of the cost function, where we initially have the absolute value of the slack-variables difference, this becomes the summation of the slack variables.
+
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -475,6 +498,10 @@ $\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
 
 				<section>
 					<aside class="notes">
+						And by doing that, we obtain the first way to solve this problem, as stated in Theorem 4.3.1.
+The cost becomes this function in the augmented space. 
+And the important thing here is to notice that now we no longer have the absolute function, and this cost is now defined only in the positive octant of Euclidean space. Consequently, this cost now has a single minimum that we can find using any optimization method like gradient descent.
+And once we find this single minimum of the augmented cost function, we can quickly obtain the minimum of the original cost function by calculating u minus w, as shown here.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -503,6 +530,8 @@ $$
 
 				<section>
 					<aside class="notes">
+						To illustrate this solution, suppose we are working with the scalar case problem to visualize what is happening under the hood more easily.
+By applying the variable change, we are mapping the problem to an augmented space, as shown here. And the interesting fact here is that the original cost function is still present in the augmented version but only on the boundaries of the positive octant. So, the original cost function unfolds itself throughout the extra dimensions to form this smooth surface which turns the problem into a problem with a single minimum that we can find using gradient descent, for example. Then, after we find the unique minimum in the augmented space, we go back to the original space, and that's it. We have found the global minimum of the original cost function.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -537,6 +566,11 @@ $$
 
 				<section>
 					<aside class="notes">
+						And to prove that, the intuition behind this is the following.
+Suppose we are minimizing an increasing linear objective function constrained to a convex feasible set in the positive octant, as shown in this picture. It is clear that for this case, the minimum is unique and always in the boundary of the positive octant. Therefore, the vectors u and w are orthogonal wrt each other, and the absolute value of the difference between u and w is equal to the summation of u and w.
+The same thing will happen if we have a concave function like that instead of a linear objective. And this is our case with the logarithm part of our cost function.
+<br><Br>
+So, the strategy here is to write our problem as a concave objective function subject to a convex feasible set.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
@@ -557,6 +591,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						And to do that, we decompose our original cost function into the quadratic part q(v ) and the logarithm part f(v). 
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
@@ -594,6 +629,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						After that, we replace the unconstrained optimization problem with a constrained optimization introducing the constant c that acts as an upper limit to the quadratic part.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
@@ -614,12 +650,13 @@ $$
 
 				<section>
 					<aside class="notes">
+						Looking at this inequality, we can apply the Schur complement to obtain this matrix inequality constraint. 
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 
-						<div class="fragment">
+						<div>
 						
 						<div style="transform:scale(0.8)">
 						$$\begin{aligned}
@@ -650,12 +687,14 @@ $$
 
 				<section>
 					<aside class="notes">
+						After that, we then use the variable change v=u-w, and what we get is this new matrix inequality.
+Unfortunately, this is still not a linear matrix inequality due to the presence of the absolute value function.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 2em;">
 						$\Rightarrow$From <b>variable change</b> $v=u-w$,
-						<div style="transform: scale(0.77) translate(-3em);">
+						<div style="transform: scale(0.77) translate(-3em);" class="fragment">
 							$$
 						\begin{aligned} 
     &\Leftrightarrow \begin{bmatrix}
@@ -672,6 +711,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						However, if we recall the triangular inequality, the absolute value of u minus w equals or is less than the sum of u and w. With that in mind, let us replace the previous constraint with the following matrix inequality: we just removed the absolute value function and are now considering the summation of u and w. This now is a linear matrix inequality!
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -699,6 +739,9 @@ $$
 
 				<section>
 					<aside class="notes">
+						Therefore, we now have an augmented version of our problem in this form, where we have a concave objective function subjected to an LMI, thus, a convex feasible set.
+<br><Br>
+And as mentioned before, this brings us to the conclusion that this problem has a unique minimum.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -727,6 +770,10 @@ $$
 
 				<section>
 					<aside class="notes">
+						It remains now to show that the unique minimum indeed satisfies the equality property of the absolute value function.
+To show that, let's assume that the unique minimum does not satisfy the equality, or in other words, the triangular inequality holds strictly.
+If this was the case, we could always define new slack variables u and w as given here in equation 15 such as the following relations are true.
+
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -756,6 +803,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						Here we see that the summation of these new slack variables happens to be equal to the absolute value of V and, thus, we conclude that if this were the case, we would have a different feasible solution that satisfies the equality in the absolute value function which is a contradiction because this means that this new solution has a lower cost then the minimum solution. So, the minimum solution must satisfy the equality, and in addition, we also notice that the minimum solution will be orthogonal, as shown here in equation 16 c.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -794,6 +842,8 @@ The following is true,
 
 				<section>
 					<aside class="notes">
+						And to illustrate that numerically, we took that scalar example, and using matlab, we implemented this constrained augmented problem for different values of C. And as expected, as we decrease the value of C the feasible set associated with the problem shrinks. For each value, the minimum is indeed unique and always in the boundary of the positive octant.
+
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -864,6 +914,8 @@ The following is true,
 
 				<section>
 					<aside class="notes">
+						And because the equality holds in the absolute value function, in the minimum point, the augmented cost function becomes the original cost function as we can replace the summation of u and w by the absolute value of v.
+						
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -910,7 +962,14 @@ and, consequently, it correspond to the <b>minimum of the original cost function
 
 				<section>
 					<aside class="notes">
+						Geometrically,  this means that once we find the minimum solution in the augmented space, this point corresponds to exactly the minimum point in the original space.
+					
+						So this was our first solution. But this is still a nonlinear optimization problem because of the logarithm part.<br><br>
+
+						It would be nice to solve this problem using linear optimization tools. <br><br>
+					
 					</aside>
+					
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
@@ -922,6 +981,7 @@ and, consequently, it correspond to the <b>minimum of the original cost function
 						<div style="position: absolute;top:0em;left:3em" class="fragment" data-fragment-index="7" >
 							<img src="images/minimum_original_cost_arrow.png" style="width: 25em;" />
 						</div>
+						<div class="fragment lightup" style="background-color: red;transform:translate(-1em,5em);color:white">Still non-linear optimization problem!</div>
 					</div>
 		
 
@@ -961,6 +1021,9 @@ $$
 				
 				<section>
 					<aside class="notes">
+In fact, we also discovered a second solution that uses only linear optimization tools and also provides us with the global minimum of the problem.<Br><br>
+
+This second solution replaces the logarithm part with a piecewise linear approximation, as illustrated here. But, instead of solving a single problem, we solve a sequence of convex subproblems using a majorization-minimization scheme.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
@@ -975,6 +1038,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						This second solution is presented in Theorem 4.3.4. and, basically, it replaces the log term with a trace term. For each iteration of this algorithm, we update this trace term using the previous solution to improve the linear approximation to the log.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
@@ -1014,6 +1078,7 @@ of the above problem.
 
 				<section>
 					<aside class="notes">
+						Here we illustrate the behavior of this linear approximation after each iteration of the algorithm. So, after a few iterations, we expect the linear approximation to become closer enough to the log term.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
@@ -1031,6 +1096,12 @@ of the above problem.
 
 				<section>
 					<aside class="notes">
+						And to prove the optimality of this second solution, we first notice that when we replace the log term with the trace term, we are actually defining a surrogate function given here in equation 8. And this surrogate function touches the original cost function in the reference point and is always greater than the original cost function for all other points,
+as shown here in this figure.<br><br>
+
+And, after each iteration, what is happening is that we are getting the minimum of this surrogate function and creating a new surrogate function that now touches the original cost function in this new point, like illustrated here.<br><br>
+
+And this repeats until we arrive at a fixed point, where the minimum of the surrogate function equals the reference point.<br><br>
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: MM Optimality</h2></div>
@@ -1069,6 +1140,8 @@ of the above problem.
 
 				<section>
 					<aside class="notes">
+						This fixed point shows us quite interesting properties. For instance, we discovered that the gradient of the surrogate and original functions coincide at the fixed point. This comes as a consequence of the fact that the gradient of the log term is equal to the gradient of the trace term when evaluated at the reference point.
+Thus, the fixed point is also a stationary point of the original cost function.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP:  MM Optimality</h2></div>
@@ -1095,6 +1168,9 @@ of the above problem.
 
 				<section>
 					<aside class="notes">
+						The same idea remains true if we look at the augmented version of both the surrogate and original functions. The gradient of both functions is still the same when evaluated at the fixed point.
+<br><Br>
+						This means that the fixed point is a stationary point of the augmented original cost function, and we know that in the augmented version, the original cost function has a unique minimum. Finally, this brings us to the conclusion that the fixed point corresponds to the minimum of the augmented original problem and, consequently, the global minimum of the original cost function, which completes the optimality proof.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP:  MM Optimality</h2></div>
@@ -1118,6 +1194,11 @@ of the above problem.
 
 				<section>
 					<aside class="notes">
+						Besides the EVIU-MAP, we also developed a relaxation using Jensen's Inequality.
+
+To do that, note that our cost function, the negative logarithm of the posterior distribution, can be interpreted as the marginal distribution of the joint distribution of measurement and the extra noise xi. And this joint distribution can be factored into this form which shows that our cost is the negative log of the expectation of the conditional distribution of Y given the extra noise xi and v together with the prior distribution.
+
+An important aspect is that the problem becomes quite simple if we switch the log inside this expectation. Instead of having the logarithm of the expectation, we will have the expectation of the logarithm. But we can't do that because this change the problem. However, as the logarithm is a concave function, from Jensens' inequality, we conclude that the expectation of the logarithm will be an upper bound to the original problem. And this upper bound we called the EVIU-Jensen cost function indicated here as J bar.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-Jensen</h2></div>
@@ -1202,6 +1283,9 @@ of the above problem.
 
 				<section>
 					<aside class="notes">
+						For linear measurement models, the EVIU-Jensen cost has this format, and we can show that this cost function is convex as long as the covariance matrix dependent on v is also convex, which is great news. That means we can provide a much simpler approximation cost function to our original problem. 
+
+Here we compare this upper bound given by Jensen's inequality with the original cost function. Note that, at least for this example, the minimums are close. Most importantly, the EVIU-Jensen preserves the cautious behavior of the original EVIU-MAP and allows us to implement this estimator in a recursive form, besides a few other fascinating characteristics that we explain in more detail in section 4.4 of my dissertation.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-Jensen</h2></div>
@@ -1225,6 +1309,10 @@ $$
 
 				<section>
 					<aside class="notes">
+						So, after establishing the model and obtaining the solution, we applied the framework we are proposing in this work to three different scenarios.<br>
+-> First, we used the EVIU approach for estimating the tumor age and tumor growth for patients with cancer;<br>
+-> Also, we brought the ideas of the EVIU-MAP to the context of portfolio management based on the famous Markowitz mean-variance approach.<br>
+-> Finally, we also used the EVIU-MAP to build a robust stochastic filtering algorithm;<br>
 					</aside>
 
 					<div class="slide-title"><h2>Applications</h2></div>
