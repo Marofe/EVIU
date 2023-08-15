@@ -1312,7 +1312,7 @@ $$
 						So, after establishing the model and obtaining the solution, we applied the framework we are proposing in this work to three different scenarios.<br>
 -> First, we used the EVIU approach for estimating the tumor age and tumor growth for patients with cancer;<br>
 -> Also, we brought the ideas of the EVIU-MAP to the context of portfolio management based on the famous Markowitz mean-variance approach.<br>
--> Finally, we also used the EVIU-MAP to build a robust stochastic filtering algorithm;<br>
+-> Finally, we also used the EVIU-MAP to build a robust stochastic filtering algorithm;
 					</aside>
 
 					<div class="slide-title"><h2>Applications</h2></div>
@@ -1339,6 +1339,12 @@ $$
 
 				<section>
 					<aside class="notes">
+						For the problem of tumor age and tumor growth estimation, we used the Gompertz model shown here in equation 19. And the goal is to estimate this model's parameters, which are the Capacity K and the Growth rate beta.
+<br><br>
+But we also slightly modify the usual Gompertz model to estimate the tumor age directly. This modification explicitly introduces the model's time shift here, as indicated by tref as shown here in equation 20. And this tref now becomes part of our vector of parameters, and we estimate it together with the capacity and the growth rate parameters. 
+<bR><Br>
+However, this problem is not so simple to solve because we will usually have just a few measurements available for each individual that we are interested in estimating the tumor age.
+The solution is to employ a population approach to this problem. And this can be done using the mixed-effect framework.
 					</aside>
 
 					<div class="slide-title"><h2>Tumor Age and Growth Estimation</h2></div>
@@ -1368,6 +1374,9 @@ $$
 
 				<section>
 					<aside class="notes">
+						The mixed-effect framework assumes that the individuals inside a population depend on two types of unknown effects: a fixed effect common to all individuals of the population and a random effect particular to each individual.
+<br><br>
+And this random effect has a variance given by omega, also known in the literature as the variability of the population.
 					</aside>
 
 					<div class="slide-title"><h2>Mixed-Effect Framework
@@ -1406,6 +1415,8 @@ $$
 
 				<section>
 					<aside class="notes">
+						In this way, the mixed-effect model allows us to obtain a prior model for the population. 
+For example, we took the dataset shown here of tumor growth measurement of a mice population in laboratory settings. And using the stochastic approximation of the expectation-maximization algorithm, we obtain this prior model consisting of the mean curve in dark blue and its variability here indicated by the blue shadow.
 					</aside>
 
 					<div class="slide-title"><h2>Prior Model from the Population</h2></div>
@@ -1421,6 +1432,7 @@ $$
 				<section>
 					
 					<aside class="notes">
+						Thus, after getting this prior model, we look at each individual in this population. Still, as I mentioned before, we usually only have a few measurements available for each individual, like in this example. But as we now have a prior model, we can bring the prior model to this individual, and we can use these few measurements only to update this prior to being tailored to this specific individual using a Bayesian method. In special, we used the EVIU-Jensen to obtain this orange curve for each individual. Likewise, we also did the same using the usual least-square method, and we got this red curve. And doing that to the entire population, we noticed that when evaluating the accuracy of the tumor age estimation, the EVIU approach outperformed the results using the classical least-squares, indicating that the EVIU approach is more suitable to this problem.
 				</aside>
 
 
@@ -1438,6 +1450,11 @@ $$
 
 				<section>
 					<aside class="notes">
+						The second application that we explored was the Markowitz portfolio management.
+This problem consists of obtaining the optimal portfolio that maximizes the returns and minimizes the risk, which is given by this optimization problem in 21.
+Or, equivalently, we can write this problem as a minimization problem, changing the sign of the cost function as shown here.
+
+Most importantly, we also can write this problem as a quadratic optimization in this form with the advantage that in this form, we can think of this problem as a maximum likelihood estimation with a virtual measurement model shown here.
 					</aside>
 
 					<div class="slide-title"><h2>Markowitz Portfolio</h2></div>
@@ -1501,6 +1518,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						And by considering this virtual measurement model, we can introduce that extra noise xi together with a prior portfolio and turn this problem into an EVIU-MAP problem that consists of finding the minimum of this cost function shown here. 
 					</aside>
 
 					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
@@ -1535,6 +1553,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						And as described before, we can solve this problem using a majorization-minimization scheme.
 					</aside>
 
 					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
@@ -1562,6 +1581,9 @@ $$
 
 				<section>
 					<aside class="notes">
+						And the result that we get shows that the portfolios we obtain are more cautious in that as we increase the intensity of that extra noise xi the optimal solution becomes closer to the prior portfolio.
+						<Br><br>
+						Here we did a numeric experiment by solving this problem with different values for the magnitude of extra noise, and we see the optimal solution walking toward the prior.
 					</aside>
 
 					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
@@ -1576,6 +1598,12 @@ $$
 
 				<section>
 					<aside class="notes">
+						We also employed the EVIU-MAP to build a robust stochastic filter to finish the application examples.
+<br><br>
+And we can do that because if we look at the classical Kalman filter, the update step, where we assimilate the measurement, consists of solving a MAP problem, which results in the regularized least-square for pure Gaussian distributions.
+<br><Br>
+Therefore, if we adopt a measurement model with that extra noise xi as shown here, then the update step of the filter will become cautious.
+
 					</aside>
 
 					<div class="slide-title"><h2>Robust Stochastic Filtering</h2></div>
@@ -1606,6 +1634,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						This is interesting for scenarios with a prior value given by the system dynamics and a measurement model reliable only near this prior. If the correction or update of the prior is too big, the uncertainty associated with the state estimation might increase. We may improve our state estimation's accuracy if this correction is small or cautious.
 					</aside>
 
 					<div class="slide-title" style="z-index: 10;"><h2>Robust Stochastic Filtering</h2></div>
@@ -1628,6 +1657,7 @@ $$
 
 				<section>
 					<aside class="notes">
+						And to implement this cautious filter, we use these five equations. Here, the first two equations remain the same as the classical Kalman filter, as we still consider a linear dynamic model for this case. The main difference is in the update step that now follows the EVIU-MAP estimator.
 					</aside>
 
 					<div class="slide-title"><h2>Robust Stochastic Filtering</h2></div>
@@ -1659,6 +1689,13 @@ $$
 
 				<section>
 					<aside class="notes">
+						So, the main conclusions of this work are the following:<br>
+We propose a novel framework for cautious estimation from a Bayesian perspective that allows us to account for modeling uncertainty by adding extra noise to the measurement model;<br>
+-> In special, this extra noise uses a variation-dependent structure that brings the notion that estimation variation might increase the uncertainty;<br>
+-> For this variation-dependent formulation, we can find the global solution to the problem using relaxation using augmented space.<bR>
+-> We also provide a relaxed version using Jensen's inequality that simplifies the problem and still shows cautious behavior.<br>
+-> Moreover, we applied the ideas of this work to three different scenarios, one involving a problem in medicine, another in finance, and formulated a stochastic filtering problem.<br>
+-> Finally, this work might give new pathways to approach problems with multiplicative noise structures.
 					</aside>
 
 					<div class="slide-title"><h2>Conclusions</h2></div>
@@ -1687,6 +1724,10 @@ $$
 
 				<section>
 					<aside class="notes">
+						Here there are the publications resulting from this work.
+We published two letters in the IEEE Control System Letters and are working on a full paper. Incorporate the main contributions of the EVIU-MAP, like the global optimality and the applications in finance, to be submitted to a period journal.
+<br><br>
+Also, besides not being directly related to the main focus of this dissertation, during my time here as a Ph.D. student, I also worked with the navigation problem using Kalman filters on lie groups that also explore ideas from estimation theory that I believe helped me to get a better understanding of the estimation area and resulted in a publication in the IEEE transactions on aerospace and electronic systems.
 					</aside>
 
 					<div class="slide-title"><h2>Publications</h2></div>
@@ -1713,6 +1754,17 @@ $$
 
 				<section>
 					<aside class="notes">
+						So, in future works, I would like to point out that it may be interesting to look for new applications of this framework in medicine, economics or finance;
+<br>
+Also, we could explore different multiplicative noise structures that can be solved using the same ideas developed here, for instance, asymmetric magnitude functions;<Br>
+
+Another scenario interesting to work on is robust control problems using multiplicative noise;<br>
+
+And we also can implement learning algorithms such as neural networks tailored for cases with scarce. measurements;<br>
+
+Another point to be explored is applications involving cautious filtering using the EVIU-MAP.<br>
+
+To conclude, we can investigate the solution's computational aspects and some statical properties of the EVIU estimator as bias and efficiency.
 					</aside>
 
 					<div class="slide-title"><h2>Future works</h2></div>
@@ -1747,6 +1799,14 @@ $$
 
 				<section>
 					<aside class="notes">
+						And after all that said, I would like to thank this university for all the support. In special, the School of electrical engineering;
+I would also like to thank the CAPES for this work's financial support.<br>
+
+I also want to thank Professor João Bosco and Professor Rafael Souto for all this time working together.<br>
+
+Thank my family and friends that helped to be here today.<br>
+
+And with that, I finish my presentation.
 					</aside>
 
 					<div class="slide-title"><h2>Acknowledgements</h2></div>
