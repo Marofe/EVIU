@@ -6,12 +6,12 @@
 
 		<title>Cautious Estimation for Poorly Known Systems</title>
 
-		<link rel="stylesheet" href="../dist/reset.css">
-		<link rel="stylesheet" href="../dist/reveal.css">
-		<link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/white.css" id="theme">
 
 		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="../plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
@@ -34,10 +34,26 @@
 					<p style="text-align: center;font-size: 0.8em;">August 18, 2023</p>
 				</div>
 
+
+				<aside class="notes">
+					Hello everyone. I'm happy to have you all here today. I'm thankful for the members of the defense committee, Professor Simo Sarkka, Professor Oswaldo, Professor Ricardo, and Professor Mateus, who kindly accepted to participate in my defense committee.<br><Br>
+					In the next few minutes, I will talk about the findings of my research that I have been working on for the last four years. My research focuses on developing new estimation tools with cautious behavior. As I will show you, we can apply this cautious behavior to estimation problems where we do not have a perfect measurement model, which we call Poorly Known Systems.
+				  </aside>
+
 				</section>
 
 
 				<section>
+					<aside class="notes">
+						Let me start by giving an outline of this presentation.<br>
+-> First, I will introduce the estimation theory and present the classic method broadly utilized for estimation. <Br>
+-> After that, I will narrow our context to the problem of robust estimation, where we face the challenge of not having a perfect measurement model.<Br>
+-> Then, I will state the objectives of this work and how we propose to deal with the robust estimation problem.<Br>
+-> After that, the main contributions of this work will be presented;<Br>
+-> Followed by a few applications to illustrate our approach.<br>
+-> Finally, I will show this work's main conclusions and future directions that I believe are worth pursuing.
+					  </aside>
+					
 					<div class="slide-title">
 					<h2>Outline</h2>
 				</div>
@@ -47,17 +63,27 @@
 <!--Present yourself, present the theme. You can state what your
 throughline is, state what’s the aim of the presentation-->
 
-						<li>Introduction to estimation theory;</li> <!--talk  about estimation problems in general--> <!-- So what?-->
-						<li>Overview of Robust Estimation Problem;</li> <!--talk  about  robust estimation problems in specific-->
-						<li>Objectives of this work;</li> 
-						<li>Main contributions;</li>
-						<li>Applications of this work, and</li> <!-- Now what?-->
-						<li>Main Conclusions.</li>
+						<li class="fragment"><b>Introduction</b> to estimation theory;</li> <!--talk  about estimation problems in general--> <!-- So what?-->
+						<li class="fragment">Overview of <b>Robust Estimation</b> Problem;</li> <!--talk  about  robust estimation problems in specific-->
+						<li class="fragment"><b>Objective</b> of this work;</li> 
+						<li class="fragment">Main <b>Contributions</b>;</li>
+						<li class="fragment"><b>Applications</b> of this work, and</li> <!-- Now what?-->
+						<li class="fragment">Main <b>Conclusions</b>.</li>
 					</ul>
 				</div>					
 				</section>
 
 				<section>
+
+					<aside class="notes">
+						So, estimation theory cares about the problem of estimating some unknown parameter or state from noisy observations. And it is well-known that estimation problems are present in many applications in different areas of science and engineering, such as<br>
+						-> System identification;<br>
+						-> Artificial Intelligence;<Br>
+						-> Power system forecasting;<Br>
+						-> Telecommunication;<Br>
+						-> Control systems; and so on...
+					  </aside>
+
 					<div class="slide-title">
 						<h2>Introduction</h2>
 					</div>
@@ -65,12 +91,12 @@ throughline is, state what’s the aim of the presentation-->
 						<p>Estimating an <b>unknown parameter</b> from noisy observations has many
 							applications in Science and Engineering, such as
 								<ul>
-								<li>System Identification;</li> 
-								<li>Artificial Intelligence;</li> 
-								<li>Power Systems forecasting;</li>
-								<li>Telecommunication;</li>
-								<li>Control Systems;</li>
-								<li>etc</li>
+								<li class="fragment">System Identification;</li> 
+								<li  class="fragment">Artificial Intelligence;</li> 
+								<li  class="fragment">Power Systems forecasting;</li>
+								<li  class="fragment">Telecommunication;</li>
+								<li  class="fragment">Control Systems;</li>
+								<li  class="fragment">etc</li>
 								
 							</p>
 							</div>
@@ -78,6 +104,15 @@ throughline is, state what’s the aim of the presentation-->
 				</section>
 
 				<section>
+
+					<aside class="notes">
+						The estimation problem consists of obtaining the value of X given a set of measurements that follows a model in the form of equation one here. An essential part of this model is this epsilon which represents the measurement noise always present in any measurement. 
+
+						Given a measurement model, we then proceed by defining some cost function associated with the available measurement set, and the best guess for X is found by searching for the value of X that minimizes this cost function, as indicated here in equation two.
+						So, we will obtain different types of estimators of X for different cost functions that we define.
+					  </aside>
+
+
 					<div class="slide-title">
 						<h2>Introduction</h2>
 					</div>
@@ -87,27 +122,37 @@ throughline is, state what’s the aim of the presentation-->
 						\tag{1}
 							y=h(x)+\varepsilon
 						$$
-						where $\varepsilon$ stands for the <b>meaurement noise</b>. Accordingly, 
+						<div class="fragment" data-fragment-index="1">
+						where $\varepsilon$ stands for the <b>meaurement noise</b>. 
+					</div>
+					<div class="fragment redSquare" data-fragment-index="1" style="top:5.4em;left:17.7em;width:1em;height:1em;"></div>
+					<div class="fragment">
+						Best "guess" for $x$ is found by, 
+						
 						$$
 						\tag{2}
 							\hat{x}=\arg\min_x J(y)
 						$$
+					
+					</div>
 							</div>
 
 				</section>
 
 
 				<section>
+					<aside class="notes">
+						The most used cost function is the least-squared error introduced by Gauss at the end of the eighteen century. And one of the main advantages of this least-square cost function is that it is convex for linear models and has a closed-form solution. 
+						
+						In fact, the least-squares method has become a fundamental tool in various areas of applied science since its introduction by Gauss.
+					  </aside>
 					<div class="slide-title">
-						<h2>Introduction</h2>
+						<h2>Least-Square Estimator</h2>
 					</div>
-					<div class="slide-content">
-						The <b>Least-Squares (LS)</b> error method has become a fundamental tool in
-						applied sciences since its introduction by Gauss.
+					<div class="fragment slide-content">
 						<img style="width: 8em;float: left;" src="images/gauss.jpg"/>
 						<span style="text-align: center;">
-				
-							<p><b>Least-Square Estimator:</b></p>
+							<p>&nbsp;</p>
 							$$
 							\begin{equation}
 							\tag{3}
@@ -115,11 +160,19 @@ throughline is, state what’s the aim of the presentation-->
 							\end{equation}
 							$$							
 							<p>For <b>linear models</b> it is convex and has a closed-form solution.</p>
-						</span>
+						</span></div>
+						<div style="font-size: 80%;transform: translate(-0.8em,0);" class="fragment lightup">
+						The <b>Least-Squares (LS)</b> error method has become a <b class="underline">fundamental tool</b> in
+						applied sciences since its introduction by Gauss.
 					</div>
+					
 				</section>
 
 				<section>
+					<aside class="notes">
+						However, we do not have a precise measurement model for many crucial areas requiring estimation tools.
+						For example, in medicine, biology, and finance. In this work, these systems we refer to as Poorly Known Systems.	
+					</aside>
 				<div class="slide-title">
 					<h2>Problem</h2>
 				</div>
@@ -140,6 +193,12 @@ throughline is, state what’s the aim of the presentation-->
 				</section>
 
 				<section>
+					<aside class="notes">
+						Therefore, one more appropriate way to model the measurement is to account for this possible model uncertainty as an additional noise, as stated here in equation four, where xi represents the measurement modeling uncertainty.
+And we can use different approaches to define this modeling uncertainty. For example,<br>
+-> norm bounded uncertainty;<br>
+-> Polytopic uncertainty;<Br>
+-> Stochastic uncertainty;	</aside>
 					<div class="slide-title">
 						<h2>Robust Estimation</h2>
 					</div>
@@ -151,24 +210,29 @@ throughline is, state what’s the aim of the presentation-->
 							y=h(x)+\xi+\varepsilon
 							\end{equation}	
 							$$
-						where $\xi$ stands for the <b>meaurement modeling uncertainty</b>.
+						<span class="fragment" data-fragment-index="1">where $\xi$ stands for the <b>meaurement modeling uncertainty</b>.</span>
 						<br>
+						<div class="fragment redSquare" style="top:2.4em;left:16.7em;width: 1em;height: 1.4em;" data-fragment-index="1"></div>
 						<div class="fragment">
 						<p>Different approaches can be utilized to define $\xi$, for example:</p>
 						<ul>
-							<li><b>Norm bounded</b> uncertainty, i.e., $\xi=E\Delta$ such as $\|\Delta\|\le 1$;</li>
-							<li><b>Polytopic</b> uncertainty, i.e., $\xi=\sum_i \alpha_iE_1$ and $\alpha\in\Lambda$;</li>
-							<li><b>Stochastic</b> uncertainty, i.e., $\xi\sim p(\xi).$</li>
+							<li class="fragment"><b>Norm bounded</b> uncertainty, i.e., $\xi=E\Delta$ such as $\|\Delta\|\le 1$;</li>
+							<li class="fragment"><b>Polytopic</b> uncertainty, i.e., $\xi=\sum_i \alpha_iE_1$ and $\alpha\in\Lambda$;</li>
+							<li class="fragment"><b>Stochastic</b> uncertainty, i.e., $\xi\sim p(\xi).$</li>
 						</ul>
 					</div>
 					</div>
 				</section>
 
 				<section>
-					<div class="slide-title"><h2>Objectives</h2></div>
+					<aside class="notes">
+						And the objective of my research is to develop robust estimation algorithms that can deal with the model imprecision found in Pooly Known Systems using a stochastic representation for the modeling uncertainty. 
+In special, combined with the stochastic representation of the modeling uncertainty, we also employ a Bayesian approach to obtain the estimator.
+	</aside>
+					<div class="slide-title"><h2>Objective</h2></div>
 					<div class="slide-content">
-						<div class="fragment lightup">
-							This work aims to develop robust estimation algorithms able to deal with the model imprecision of PKS.
+						<div class="fragment lightup" style="font-size: 90%;">
+							This work aims to develop robust estimation algorithms able to deal with the model imprecision of PKS using <b class="underline">stochastic uncertainty</b> representation.
 						</div>
 						<span class="fragment">
 							In special, we employ a <b>Bayesian approach</b>.
@@ -183,91 +247,144 @@ throughline is, state what’s the aim of the presentation-->
 				</section>
 				
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Bayesian Approach</h2></div>
 				<div class="slide-content">
 					Assume a prior value $x_0\in\mathbb{R}^n$ where the model is reliable. Thus, the parameter is rewritten as 
 					\[
-					\tag{3}
+					\tag{5}
 					x=x_0+v
 					\]
+					<div data-fragment-index="1" class="fragment">
 					where $v\in\mathbb{R}^n$ is the <b>estimation variation</b>. 
-						    <span class="fragment">Accordingly, the measurement model is
+				</div>
+				<div class="fragment fade-down redSquare" data-fragment-index="1" style="top:4em;left:17.2em;width: 1em;height: 1.5em;"></div>
+						    <span class="fragment"  data-fragment-index="2">Accordingly, the measurement model is
 							$$
 							\begin{equation}
-							\tag{4}
+							\tag{6}
 							y=h(x_0+v)+\xi+\varepsilon
 							\end{equation}
 							$$
-					We assume that: 
+					We also assume that: 
 					$ \xi \sim p(\xi|v)$ is a <b>variation-dependent</b> r.v.</span>
 				</div>
+				<div class="fragment fade-up redSquare" data-fragment-index="2" style="top:12.1em;left:9.2em;width: 12em;height: 1.5em;border-color: green;"></div>
 
 				</section>
 
+
 				<section>
+					<aside class="notes">
+					</aside>
+
+					<div class="slide-title"><h2>EVIU Approach</h2></div>
+					<div class="slide-content" style="text-align: center;">
+						<img class="fragment current-visible" src="images/typeI_function.png" style="width: 15em;"/>
+						<img class="fragment current-visible" src="images/typeI_function2.png" style="width: 15em;"/>
+						<img class="fragment current-visible" src="images/typeII_function3.png" style="width: 15em;"/>
+						<img class="fragment" src="images/typeII_function5.png" style="width: 15em;"/>
+						<div class="fragment lightup" style="position: absolute;top:5em;width: 25em;">Uncertainty increases as $v$ increases.</div>
+					</div>
+					</section>
+
+				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU Approach</h2></div>
 					<div class="slide-content">
 												In particular,
 						<div class="lightup" style="padding: 0; margin: 0;">
-							$$\xi=\varphi(v)\epsilon, \text{ and } \epsilon\sim \mathcal{N}(0,W)\tag{10}$$
+							$$\xi=\varphi(v)\epsilon, \text{ and } \epsilon\sim \mathcal{N}(0,W)\tag{7}$$
 						</div>
 						where the function $v\to \varphi(v)$ is called <b>magnitude function</b>.
 						
-						<div>$\Rightarrow$The result is a <b>Gaussian-variation dependent distribution</b>,
+						<div class="fragment" data-fragment-index="1">$\Rightarrow$The result is a <b>Gaussian-like distribution</b>,
 						$$
-						\tag{5}
+						\tag{8}
     					p(y|v)=\mathcal{N}(y;h(x_0+v),\tilde{R}(v))
 						$$
+						</div>
+						<div class="fragment" data-fragment-index="2">
 where 
 $\tilde{R}(v)=R+\underbrace{\varphi(v)W\varphi(v)^\intercal}_{\Sigma(v)}$.
 						</div>
+						<div class="fragment fade-up redSquare" data-fragment-index="2" style="top:8.5em;left:20.2em;width: 2.8em;height: 2em;"></div>
 					</div>
 				</section>
 
-				<section>
-					<div class="slide-title"><h2>EVIU Approach</h2></div>
-					<div class="slide-content" style="text-align: center;">
-						<div class="lightup">Uncertainty increases as $v$ increases.</div>
-						<img src="images/typeII_function.png" style="width: 23em;"/>
-					</div>
-					</section>
 
+				<section>
+					<aside class="notes">
+					</aside>
+
+					<div class="slide-title"><h2>EVIU Approach</h2></div>
+					<div class="slide-content">
+												In particular,
+						<div class="lightup" style="padding: 0; margin: 0;">
+							$$\xi=\varphi(v)\epsilon, \text{ and } \epsilon\sim \mathcal{N}(0,W)\tag{7}$$
+						</div>
+						where the function $v\to \varphi(v)$ is called <b>magnitude function</b>.
+						<div class="fragment">
+							We set the magnitude function (Type I) to <center>
+							$$ 
+							\varphi(v)=\sigma\sqrt{\text{diag}(|v|)} \Rightarrow \Sigma(v)=\sigma\text{diag}(|v|)\sigma^\intercal
+							$$</center>
+							where $\sigma$ is a <b>tuning parameter</b> of apropriate dimensions.
+						</div>
+						<div class="fragment redSquare current-visible" style="top:8.5em;left:3.8em;height:2em;width: 10.5em;border-color:greenyellow"></div>
+						<div class="fragment redSquare current-visible" style="top:8.5em;left:16em;height:2em;width: 10.5em;"></div>
+		
+		
+					</div>
+				</section>
 				
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU Approach</h2></div>
 					<div class="slide-content" style="text-align: center;">
-						<div style="position: absolute;transform: scale(0.65) translate(8em,2.5em);">
-$$
-\Rightarrow p(y|v)=\mathcal{N}(y;h(x_0+v),\tilde{R}(v))
-$$
-
-						</div>
 						<div class="lightup">The distribution becomes fat-tail.</div>
-						<img src="images/fat_tail_eviu.png" style="width: 18em;transform: translate(-1em,1em);"/>
+						<img src="images/fat_tail_eviu.png" style="width: 20em;transform: translate(-1em,0em);"/>
 					</div>
 				</section>	
 
+				
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP</h2></div>
 					<div class="slide-content">
-						Given a <b>prior distribution</b> for the estimation variation, $v\sim p(v)$, we obtain from the <b>Baye's rule</b> the posterior,
+						Given a <b>prior distribution</b> for the estimation variation, $v\sim p(v)$, we obtain from <b>Baye's rule</b> the posterior distribution,
+						<div class="fragment">
 						$$
-						\tag{11}
+						\tag{9}
 						p(v|y_{1:N})=\frac{p(y_{1:N}|v)p(v)}{p(y_{1:N})},
 						$$
+					</div>
+					<div class="fragment">
 						and the <b>EVIU-MAP</b> associated is 
 						$$
-						\tag{12}
+						\tag{10}
 						v^*=\arg\min_v \underbrace{-\log[p(v|y_{1:N})]}_{\tilde{\ell}(v)}.
 						$$
+					</div>
 					</div>
 				
 				</section>
 
 				
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP</h2></div>
 					<div class="slide-content">
 						
@@ -276,7 +393,7 @@ $$
 							<div style="display: block;width:38em;transform:scale(0.8) translate(-7em,0);">
 						$$ 
 						\begin{equation}
-						\tag{15}
+						\tag{11}
 						\tilde{\ell}(v)=\frac{1}{2}\|\tilde y-h(x_0+v)\|_{\mathcal{\tilde{R}}(v)^{-1}}^2+\frac{1}{2}\|v\|_{P_0^{-1}}^2+\frac{1}{2}\log|I+\mathcal{R}^{-1}\tilde{\Sigma}(v)|
 		\end{equation}
 						$$
@@ -284,15 +401,8 @@ $$
 						<div class="fragment redSquare current-visible" style="top:2.5em;left:4em;height:3em;width: 14.2em;"></div>
 						<div class="fragment redSquare current-visible" style="top:2.5em;left:19.3em;height:3em;width: 8.4em;"></div>
 					</div>
-					<div class="fragment" style="transform: scale(0.95);">
-						Set the magnitude function (Type I) to <center>
-						$$ 
-						\varphi(v)=\sigma\sqrt{\text{diag}(|v|)} \Rightarrow \Sigma(v)=\sigma\text{diag}(|v|)\sigma^\intercal\tag{16}
-						$$</center>
-						where $\sigma$ is a <b>tuning parameter</b> of apropriate dimensions.
-					</div>
-					<div class="fragment redSquare current-visible" style="top:8.9em;left:16em;height:2em;width: 10.5em;"></div>
-					<div class="fragment">$\Rightarrow $<b>Linear Models</b>: $h(x)=Hx, H\in\R^{m\times n}$.</div>
+					
+					<div class="fragment">$\Rightarrow $<b>Linear Models</b>: $$h(x)=Hx, H\in\R^{m\times n}$$</div>
 					
 						
 					</div>				
@@ -300,6 +410,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: Plot</h2></div>
 					<div class="slide-content">
 						
@@ -308,12 +421,52 @@ $$
 							<div style="position: absolute;top:0;left: 8.5em;">$v\in\R$</div>
 									</div>
 
-						<div class="fragment" style="position: absolute;top:-0.5em;left:5em" data-fragment-index="2">
-										<img src="images/eviu_map_cost_2d.png" style="width: 18em;" />
+						<div class="fragment" style="position: absolute;top:0em;left:5em" data-fragment-index="2">
+										<img src="images/eviu2dCost.gif" style="width: 18em;transform: translate(0,1em);" />
 										<div style="position: absolute;top:0;left: 8.5em;">$v\in\R^2$</div>
 						</div>		
-						<div class="fragment lightup" style="position: absolute;top:1em;width: 25em;"><b class="underline" style="color: red;">Non-covex</b> and <b class="underline" style="color: red;">non-differentiable</b>!</div>							
+						<div class="fragment current-visible lightup" style="position: absolute;top:1em;width: 25em;" data-fragment-index="3"><b class="underline" style="color: red;">Non-differentiable</b> and <b class="underline" style="color: red;">non-covex</b>!</div>							
+						<div class="fragment" style="position: absolute;top:0em;left:5em" data-fragment-index="4">
+							<img src="images/eviu2dpdf.gif" style="width: 18em;transform: translate(0,1em);" />
+							<div style="position: absolute;top:0;left: 8.5em;">$v\in\R^2$</div>
+			</div>		
 					</div>				
+				</section>
+
+
+				<section>
+					<aside class="notes">
+					</aside>
+
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+						<center>
+								<ul>
+									<li class="fragment"  data-fragment-index="1">Apply the <b>variable change</b> 
+										<div>
+										$$
+										\begin{equation*}
+										v=u-w
+										\end{equation*}
+										$$ 
+									</div>
+										where $u\ge0$ and $w\ge 0$ are <b>slack-variables</b>;</li>
+										<div class="fragment fade-down redSquare"  data-fragment-index="1" style="top:3.1em;left:12.5em;height: 2em;width: 6.2em;border-color: greenyellow;"></div>
+									<li class="fragment"  data-fragment-index="2">Replace $|u-w|$ by $(u+w)$.
+							<div class="fragment current-visible" data-fragment-index="3">
+							$$
+							\frac{N}{2}\log|I+R^{-1}\sigma\diag(|u-w|)\sigma^\trp|
+							$$
+							</div>
+							<div class="fragment fade-down redSquare"  data-fragment-index="3" style="top:10.5em;left:18.4em;height: 2em;width: 3.9em;"></div>
+							<div class="fragment"  data-fragment-index="4">
+								$$
+								\frac{N}{2}\log|I+R^{-1}\sigma\diag(u+w)\sigma^\trp|
+								$$
+								</div>
+									</li>
+								</ul>
+								</center></div>
 				</section>
 
 				
@@ -321,6 +474,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content">
 		<div class="lightup" style="text-align: justify;margin: 0; padding-bottom: 0;transform: scale(0.9);height:14em">
@@ -340,53 +496,33 @@ $$
 </div>
 </div>
 <div class="fragment redSquare" style="top:9.6em;left:3em;height: 4em;width: 24.7em;"></div>
+<div class="fragment fade-down redSquare"  style="top:2.2em;left:14em;height: 1.5em;width: 6.2em;border-color: greenyellow;"></div>
 					</div>
-
-					
-
-					
-
 				</section>
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
-						<center>
-<div class="fragment current-visible" data-fragment-index="0">
-	<ul>
-		<li>Apply the <b>variable change</b> 
-			<div style="transform: translate(-6em,0);">
-			$$
-			\begin{equation}
-			v=u-w
-			\end{equation}
-			$$ 
-		</div>
-			where $u\ge0$ and $w\ge 0$ are <b>slack-variables</b>;</li>
-		<li>Replace $|u-w|$ by $(u+w)$.
-<div class="lightup" style="transform: scale(0.7) translate(-8em,-1em);">
-$$
-\frac{N}{2}\log|I+R^{-1}\sigma\diag(|u-w|)\sigma^\trp|\Rightarrow \frac{N}{2}\log|I+R^{-1}\sigma\diag(u+w)\sigma^\trp|
-$$
-</div>
-		</li>
-	</ul>
-</div>
+					
 							<div class="fragment current-visible" style="position: absolute;top:1em;left:0em" data-fragment-index="1">
 								<img src="images/augmenteEviuCost0.png" style="width:29em;transform:scale(1.1)" />
 										</div>
 							<div class="fragment current-visible" style="position: absolute;top:1em;left:0.025em" data-fragment-index="2">
 					<img src="images/augmenteEviuCost.png" style="width:30em;transform:scale(1.1)" />
 							</div>
+										<div class="fragment current-visible" style="position: absolute;top:0em;left:4em" data-fragment-index="3">
+											<img src="images/augmentedCost.gif" style="width:20em" />
+													</div>
 
-							<div class="fragment current-visible" style="position: absolute;top:1em;left:0em" data-fragment-index="3">
+							<div class="fragment current-visible" style="position: absolute;top:1em;left:0em" data-fragment-index="4">
 								<img src="images/augmenteEviuCost2.png" style="width:30em;transform:scale(1.1)" />
 										</div>
 
-										<div class="fragment current-visible" style="position: absolute;top:0em;left:4em" data-fragment-index="4">
-											<img src="images/augmentedCost.gif" style="width:20em" />
-													</div>
+							
 							
 				
 				</center>
@@ -400,6 +536,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						
@@ -417,20 +556,36 @@ $$
 				</section>
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
 					<div class="slide-content">
 						
 						Let <b>decompose</b> the function into two terms in the form
-						$$ \tag{15}
+						$$ \tag{13}
 						\tilde{\ell}(v)=q(v)+f(v)
 						$$
 						where
+						<div class="fragment current-visible" data-fragment-index="1">
+				$$
+						\begin{aligned}
+			   			    q(v)&=\frac{1}{2}\|\tilde z-\tilde H v\|_{(\mathcal{R}+I_N\otimes(\sigma\text{diag}(|v|)\sigma^\intercal))^{-1}}^2+\frac{1}{2}\|v\|_{P_0^{-1}}^2,\\
+				
+						\end{aligned}
+				$$
+			</div>
+			<div class="fragment redSquare current-visible" style="top:2em;left:14em;width:2.5em;height: 2em;" data-fragment-index="1"></div>
+			<div class="fragment current-visible" data-fragment-index="2">
 				$$
 						\begin{aligned}
 			   			    q(v)&=\frac{1}{2}\|\tilde z-\tilde H v\|_{(\mathcal{R}+I_N\otimes(\sigma\text{diag}(|v|)\sigma^\intercal))^{-1}}^2+\frac{1}{2}\|v\|_{P_0^{-1}}^2,\\
 							f(v)&=\frac{N}{2}\log|I+R^{-1}\sigma\text{diag}(|v|)\sigma^\intercal|.
 						\end{aligned}
 				$$
+			</div>
+			<div class="fragment redSquare current-visible" style="top:2em;left:17.6em;width:2.5em;height: 2em;" data-fragment-index="2"></div>
+			
 					</div>
 
 				</section>
@@ -438,30 +593,46 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: Optimality Proof</h2></div>
 					<div class="slide-content" style="padding-top: 3em;">
-						
-						$\Rightarrow$<b>Proof of Theorem 4.3.1:</b>
+					
 						$$
 						\begin{aligned}
 						&\min_{v\in\R^n} \bigl[\underbrace{q(v)+f(v)}_{\tilde{\ell}(v)}\bigr] \iff & \min_{c\ge 0,v\in\mathbb{R}^n} \bigl[c + f(v)\bigr]\\
 						&&\text{s.t.}\quad \frac{1}{2}c \ge q(v)
 						\end{aligned}
 						$$
-						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:4.5em;left:4em;width: 9em;height: 5em;"></div>
-						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:4.5em;left:17em;width: 10em;height: 8em;"></div>
+						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:3.4em;left:4em;width: 9em;height: 5em;"></div>
+						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:3.4em;left:17em;width: 10em;height: 8em;"></div>
 					</div>
 				
 
 				</section>
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
-					<div class="slide-content" style="padding-top: 2em;">
-						$\Rightarrow$From <b>Schur's Complement</b>,
+					<div class="slide-content" style="padding-top: 0em;">
+
+						<div class="fragment">
+						
 						<div style="transform:scale(0.8)">
 						$$\begin{aligned}
     &\frac{1}{2}c - \frac{1}{2}\|\tilde z-\tilde H v\|_{\mathcal{\tilde{R}}(v)^{-1}}^2-\frac{1}{2}\|v\|_{P_0^{-1}}^2\ge 0\\
+    
+\end{aligned}$$
+						</div>
+					</div>
+						<div class="fragment">
+							$\Rightarrow$From <b>Schur's Complement</b>,
+						<div style="transform:scale(0.8)">
+						$$\begin{aligned}
+   
     &\Leftrightarrow \begin{bmatrix}
     c & (\tilde{z}-\tilde{H}v)^\intercal & v^\intercal \\
     (\tilde{z}-\tilde{H}v) & \mathcal{R}+I_N\otimes(\sigma\text{diag}(|v|)\sigma^\intercal) & 0 \\
@@ -469,8 +640,8 @@ $$
     \end{bmatrix}\succeq 0
 \end{aligned}$$
 						</div>
-						<div class="fragment" style="transform: translate(0,-1em);">$\Rightarrow $Introduce <b>slack-variables</b> in the form $v=u-w$.</div>
-						<div class="fragment redSquare" style="top:13.1em;left:17.7em;width:5.5em;height:1.5em;transform: translate(0,-1em)"></div>
+					</div>
+						
 					</div>
 	
 
@@ -478,30 +649,35 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 2em;">
-						$\Rightarrow$From <b>Schur's Complement</b>,
+						$\Rightarrow$From <b>variable change</b> $v=u-w$,
 						<div style="transform: scale(0.77) translate(-3em);">
 							$$
 						\begin{aligned} 
-    &\frac{1}{2}c - \frac{1}{2}\|\tilde z-\tilde H (u-w)\|_{\mathcal{\tilde{R}}(v)^{-1}}^2-\frac{1}{2}\|u-w\|_{P_0^{-1}}^2\ge 0\\
     &\Leftrightarrow \begin{bmatrix}
     c & (\tilde{z}-\tilde{H}(u-w))^\trp & (u-w)^\trp \\
     (\tilde{z}-\tilde{H}(u-w)) & \mathcal{R}+I_N\otimes(\sigma\diag(|u-w|)\sigma^\trp) & 0 \\
     u-w & 0 & P_0
     \end{bmatrix}\succeq 0
 \end{aligned}$$</div>
-<div class="fragment lightup" style="transform:translate(-1em,-1em)"><center>It is not an LMI yet!</div>
+<div class="fragment lightup" style="transform:translate(-1em,-1em);background-color: red;color:white;"><center>It is not an LMI yet!</div>
 
 				</section>
 
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						$\Rightarrow$From <b>Triangular Inequality</b>,
-						$$|u-w|\le u+w\tag{25}$$
+						$$|u-w|\le u+w\tag{14}$$
 						<span class="fragment">
 						Replaces the previous constraint by,
 						<div style="transform: scale(0.8) translate(-2em,-1em);">
@@ -514,7 +690,7 @@ $$
     \end{bmatrix}\succeq 0
 \end{aligned}$$</div>
 </span>
-<div class="fragment lightup" style="transform:translate(-1em,-2em)"><center>It is an LMI!</div>
+<div class="fragment lightup" style="transform:translate(-1em,-2em);background-color: greenyellow;"><center>It is an LMI!</div>
 					</div>
 	
 
@@ -522,6 +698,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						$\Rightarrow$As result, the <b>augmented problem</b> becomes,
@@ -547,6 +726,9 @@ $$
 				</section>
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 
@@ -560,9 +742,9 @@ $$
 <div class="fragment" style="transform: scale(0.85) translate(0,-1.5em);">
 	$$
 	\begin{align}
-	v^*&=u^*-w^*,\tag{1a}\\
-	\bar{u}&=\frac{|v^*|+v^*}{2},\tag{1b}\\
-	\bar{w}&=\frac{|v^*|-v^*}{2}.\tag{1c}
+	v^*&=u^*-w^*,\tag{15a}\\
+	\bar{u}&=\frac{|v^*|+v^*}{2},\tag{15b}\\
+	\bar{w}&=\frac{|v^*|-v^*}{2}.\tag{15c}
 \end{align} 
 $$
 </div>
@@ -573,15 +755,18 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
-We get,
+The following is true,
 <div style="transform: scale(0.85) translate(0em,-2em);">
 	$$
 	\begin{align}
-	\bar{u}-\bar{w}&=\frac{|v^*|+v^*}{2}-\frac{|v^*|-v^*}{2}=v^*,\tag{2a}\\
-	\bar{u}+\bar{w}&=\frac{|v^*|+v^*}{2}+\frac{|v^*|-v^*}{2}=|v^*|,\tag{2b}\\
-	\langle \bar{u},\bar{w}\rangle &= \left(\frac{|v^*|+v^*}{2}\right)^\trp\left(\frac{|v^*|-v^*}{2}\right) =0.\tag{2c}
+	\bar{u}-\bar{w}&=\frac{|v^*|+v^*}{2}-\frac{|v^*|-v^*}{2}=v^*,\tag{16a}\\
+	\bar{u}+\bar{w}&=\frac{|v^*|+v^*}{2}+\frac{|v^*|-v^*}{2}=|v^*|,\tag{16b}\\
+	\langle \bar{u},\bar{w}\rangle &= \left(\frac{|v^*|+v^*}{2}\right)^\trp\left(\frac{|v^*|-v^*}{2}\right) =0.\tag{16c}
 	\end{align}
 	$$
 </div>
@@ -608,6 +793,9 @@ We get,
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						<center>
@@ -675,11 +863,14 @@ We get,
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 Therefore, one concludes that the minimum must satisfy
 $$
-\tag{10}
+\tag{17}
 |u^*-w^*|=u^*+w^*=|v^*|
 $$
 and, consequently, it correspond to the <b>minimum of the original cost function</b>,
@@ -718,15 +909,16 @@ and, consequently, it correspond to the <b>minimum of the original cost function
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						<div style="position: absolute;top:0em;left:5em" class="fragment current-visible" data-fragment-index="5" >
 							<img src="images/regionAugmented4.png" style="width: 20em;" />
 							<img src="images/arrow.svg" style="position:absolute;width: 4em;left:3.2em;top:9.2em;transform: rotate(-80deg);" />
 						</div>
-						<div style="position: absolute;top:0em;left:3em" class="fragment" data-fragment-index="6" >
-							<img src="images/minimum_original_cost.png" style="width: 25em;" />
-						</div>
+						
 						<div style="position: absolute;top:0em;left:3em" class="fragment" data-fragment-index="7" >
 							<img src="images/minimum_original_cost_arrow.png" style="width: 25em;" />
 						</div>
@@ -737,7 +929,7 @@ and, consequently, it correspond to the <b>minimum of the original cost function
 
 
 
-				<section>
+				<!-- <section>
 					<div class="slide-title"><h2>EVIU-MAP: Corollary</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						<div class="lightup" style="text-align: justify;height: 12.3em;transform: translate(0,-.3em);">
@@ -764,10 +956,27 @@ $$
 					</div>
 		
 
+				</section> -->
+
+				
+				<section>
+					<aside class="notes">
+					</aside>
+
+					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+				<center>
+						<img class="fragment current-visible" src="images/logTraceApprox.png" style="width: 25em;transform: translate(0.2em,0);"/>
+				
+					</center>
+					</div>
 				</section>
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						<div class="lightup" style="text-align: justify;height: 14.5em;width:32em;transform: translate(-3em,-1.5em) scale(0.85);">
@@ -804,10 +1013,12 @@ of the above problem.
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 				<center>
-						<img class="fragment current-visible" src="images/logTraceApprox.png" style="width: 25em;transform: translate(0.2em,0);"/>
 						<img class="fragment current-visible" src="images/logTraceApprox0.png" style="width: 19em;"/>
 						<img class="fragment current-visible" src="images/logTraceApprox1.png" style="width: 19em;"/>
 						<img class="fragment current-visible" src="images/logTraceApprox2.png" style="width: 19em;"/>
@@ -819,22 +1030,21 @@ of the above problem.
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP: MM Optimality</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 		$\Rightarrow $<b>Surrogate function</b>
 		<div style="transform: scale(0.8) translate(-2em,-1em);">
 		$$
 		\begin{equation}
+		\tag{18}
 		\bar{\ell}_{v^j}(v):=q(v)+\frac{N}{2}\tr[\tilde{R}(v^j)^{-1}\Sigma(v)]+a_{v^j}
 		\end{equation}
 		$$
 	</div>
-	<div class="fragment current-visible" style="text-align: center;">
-		<img src="images/MM_algorithm0.png" style="width: 17em;transform: translate(0,-2em);"/>
-	</div>
-	<div class="fragment current-visible" style="text-align: center;">
-		<img src="images/MM_algorithm1.png" style="width: 17em;transform: translate(0,-2em);"/>
-	</div>
+	
 	<div class="fragment current-visible" style="text-align: center;">
 		<img src="images/MM_algorithm2.png" style="width: 17em;transform: translate(0,-2em);"/>
 	</div>
@@ -858,6 +1068,9 @@ of the above problem.
 				
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP:  MM Optimality</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						Let $\bar{v}$ be the fixed point, i.e., $\bar{v}=\mathcal{M}(\bar{v})$.
@@ -873,14 +1086,17 @@ of the above problem.
 	<span class="fragment">
 			Therefore, one concludes that $\bar{v}$ is also a <b>stationary point</b> of $\tilde{\ell}(v)$.
 		</span>
-		<span class="fragment">
+		<!-- <span class="fragment">
 			$\Rightarrow$ Let $(\bar{u},\bar{w})$ be the <b>slack-variables</b> such as $\bar{v}=\bar{u}-\bar{w}$.
-		</span>
+		</span> -->
 		</div>
 				</section>
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-MAP:  MM Optimality</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						To conclude the global optimality, consider the <b>augmented version</b> of both <b>surrogate</b> and <b>original cost</b> function, 
@@ -901,6 +1117,9 @@ of the above problem.
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-Jensen</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
@@ -910,6 +1129,16 @@ of the above problem.
 					\end{align*}
 					$$
 					</div>
+
+					<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
+						$$
+						\begin{align*}
+						\tilde{\ell}(v)&=-\log\left[ p(y_{1:N}|v)p(v)\right] +cte   \\
+						&=-\log\left[\int p(y_{1:N},\xi|v)p(v)d\xi\right]+cte   
+						\end{align*}
+						$$
+						</div>
+
 					<div class="fragment current-visible" style="transform: scale(0.8) translate(-4em,0);">
 						$$
 						\begin{align*}
@@ -972,6 +1201,9 @@ of the above problem.
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>EVIU-Jensen</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 	<div style="transform: scale(0.8) translate(-3em,-1em);">
@@ -985,25 +1217,30 @@ $$
 <div class="fragment" style="text-align: center;">
 	<img src="images/comparison_eviu_vs_jensen.png" style="width: 15em;transform: translate(0,-3em);"/>
 </div>
+<div class="fragment lightup" style="position: absolute;top:5em;left:1em;width: 25em;">Section 4.4</div>
 					</div>
+					
 				</section>
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Applications</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						<ul>
-							<li>Medicine: Tumor Age and Growth Estimation;</li>
+							<li class="fragment" data-fragment-index="1">Medicine: Tumor Age and Growth Estimation;</li>
 							
-							<li>Finance: Markowitz Portfolio Management;</li>
+							<li class="fragment" data-fragment-index="2">Finance: Markowitz Portfolio Management;</li>
 							
-							<li>Robust Stochastic filtering.</li>
+							<li class="fragment" data-fragment-index="3">Robust Stochastic filtering.</li>
 						</ul>
 						<div class="imgContainer" style="padding-left:1.5em ;">
 							<center>
-						<img src="images/mice.png" style="width: 7em;"/>
-						<img src="images/efficient_frontier.png" style="width: 10em;"/>
-						<img src="images/eviu_filter_elipses.png" style="width: 8em;"/>
+						<img class="fragment" data-fragment-index="1" src="images/mice.png" style="width: 7em;"/>
+						<img class="fragment" data-fragment-index="2"  src="images/efficient_frontier.png" style="width: 10em;"/>
+						<img class="fragment" data-fragment-index="3"  src="images/eviu_filter_elipses.png" style="width: 8em;"/>
 							</center>
 					</div>
 					
@@ -1013,11 +1250,15 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Tumor Age and Growth Estimation</h2></div>
 					<div class="fragment current-visible slide-content" style="padding-top: 0em;">
 					$\Rightarrow $ Gompertz Model
 					$$
 					\begin{equation}
+					\tag{19}
 						V(t)=K\exp\left(\log\left(\frac{V_\text{inj}}{K}\right)\exp(-\beta t)\right)
 					\end{equation}
 					$$
@@ -1027,16 +1268,20 @@ $$
 						$\Rightarrow $ Gompertz Model
 						$$
 						\begin{equation}
+						\tag{20}
 							V(t)=K\exp\left(\log\left(\frac{V_\text{inj}}{K}\right)\exp(-\beta (t-t_{\text{ref}}))\right)
 						\end{equation}
 						$$
 						$\Rightarrow$ Parameters to be estimated: $$(K\to \text{Capacity},\beta\to\text{Growth rate},t_{\text{ref}} \to \text{age})$$
 						</div>
-						<div class="fragment current-visible lightup">Few measurements available to an individual.</div>
-						<div class="fragment lightup">Mixed-effect framework together with the EVIU-Jensen!</div>
+						<div class="fragment current-visible lightup" style="background-color: red;color:white">Few measurements available to each individual!</div>
+						<div class="fragment lightup" style="background-color: greenyellow;">Mixed-effect framework!</div>
 				</section>
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Mixed-Effect Framework
 					</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
@@ -1046,9 +1291,9 @@ $$
 							 <p>&nbsp;</p>
 							 <div class="fragment">
 						$$
-						\begin{equation}
+						\begin{equation*}
 						\log(\phi_i)=\log(\mu)+\eta_i,\quad \eta_i\sim\mathcal{N}(0,\Diag(\omega))
-					\end{equation}
+					\end{equation*}
 						$$
 					</div>
 					<div class="fragment current-visible redSquare" style="top:7.8em;left:3.5em;width: 11.5em;height:1.3em;border-color: green;"></div>
@@ -1072,6 +1317,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Prior Model from the Population</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						<center>
@@ -1083,6 +1331,11 @@ $$
 
 
 				<section>
+					
+					<aside class="notes">
+				</aside>
+
+
 					<div class="slide-title"><h2>Individual Estimation</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						<center>
@@ -1096,11 +1349,15 @@ $$
 				</section>
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Markowitz Portfolio</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
-						<div class="fragment lightup current-visible">
+						<div class="fragment lightup current-visible" data-fragment-index="1">
 						$$
 						\begin{equation}
+						\tag{21}
 						\begin{split}
 						\max_x \quad & \left(\mu^\trp x -\frac{\lambda}{2} x^\trp \Psi x\right)\\
 						\text{s.t.} \quad&  \mathbf{1}^\trp x = 1,\\ \quad &x_i\ge 0~ \forall~ i=1,\ldots, M
@@ -1108,9 +1365,10 @@ $$
 						\end{equation}
 						$$
 					</div>
-					<div class="lightup fragment current-visible">
+					<div class="lightup fragment current-visible" data-fragment-index="2">
 						$$
 						\begin{equation}
+						\tag{22}
 						\begin{split}
 						\min_x \quad & \left(-\mu^\trp x +\frac{\lambda}{2} x^\trp \Psi x\right)\\
 						\text{s.t.} \quad&  \mathbf{1}^\trp x = 1,\\ \quad &x_i\ge 0~ \forall~ i=1,\ldots, M
@@ -1119,9 +1377,10 @@ $$
 						$$
 					</div>
 
-					<div class="lightup fragment">
+					<div class="lightup fragment" data-fragment-index="3">
 						$$
 						\begin{equation}
+						\tag{23}
 						\begin{split}
 						\min_x \quad & \frac{1}{2}\|\mu-\lambda \Psi x\|_{(\lambda\Psi)^{-1}}^2\\
 						\text{s.t.}\quad & \mathbf{1}^\trp x =1\\
@@ -1130,7 +1389,7 @@ $$
 						\end{equation}
 						$$
 					</div>
-					<div class="fragment" style="transform: scale(0.8) translate(0,-1em);">
+					<div class="fragment" data-fragment-index="4" style="transform: scale(0.8) translate(0,-1em);">
 						$\Rightarrow $<b>Virtual Measurement</b>
 						$$
 						\begin{equation*}
@@ -1147,16 +1406,20 @@ $$
 \end{equation*}
 $$
 					</div>
-					<div class="fragment fade-down redSquare" style="top:11.3em;left:5em;height:2.9em"></div>
+					<div class="fragment fade-down redSquare" data-fragment-index="4" style="top:11.3em;left:5em;height:2.9em"></div>
 						</div>
 				</section>
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 						$$
 						\begin{equation}
+						\tag{24}
 						y:=\begin{bmatrix}
 						\mu\\
 						1\\
@@ -1183,6 +1446,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						Solving using <b>Majorization-Minimization</b>:
@@ -1207,6 +1473,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Robust Markowitz Portfolio</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						<center>
@@ -1218,6 +1487,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Robust Stochastic Filtering</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 					<div style="transform: scale(0.9) translate(-1em,0);">
@@ -1245,32 +1517,31 @@ $$
 
 
 				<section>
-					<div class="slide-title"><h2>Robust Stochastic Filtering</h2></div>
-					<div class="slide-content" style="padding-top: 0em;">
-						
-							<div style="text-align: center;"  class="fragment current-visible">
-							<img src="images/eviu_filter_elipses0.png" style="width: 15em;"/>
-						</div>
+					<aside class="notes">
+					</aside>
+
+					<div class="slide-title" style="z-index: 10;"><h2>Robust Stochastic Filtering</h2></div>
+					<div class="slide-content" style="padding-top: 0em;transform: translate(0,-4em);">
 						<div style="text-align: center;"  class="fragment current-visible">
-							<img src="images/eviu_filter_elipses1.png" style="width: 15em;"/>
+							<img src="images/eviu_filter_elipses1.png" style="width: 16em;"/>
 							</div>	
 							
 							<div style="text-align: center;"  class="fragment current-visible">
-								<img src="images/eviu_filter_elipses3.png" style="width: 15em;"/>
+								<img src="images/eviu_filter_elipses3.png" style="width: 16em;"/>
 								</div>	
 
-								<div style="text-align: center;"  class="fragment current-visible">
-									<img src="images/eviu_filter_elipses4.png" style="width: 15em;"/>
-									</div>	
-
+								
 									<div style="text-align: center;"  class="fragment current-visible">
-										<img src="images/eviu_filter_elipses5.png" style="width: 15em;"/>
+										<img src="images/eviu_filter_elipses5.png" style="width: 16em;"/>
 										</div>	
 					</div>
 				</section>
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Robust Stochastic Filtering</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 					
@@ -1289,7 +1560,7 @@ $$
 					<div style="transform: scale(0.8) translate(-3em,-1em);">
 					$$
 					\begin{equation*}
-					\tilde\ell(v)=\frac{1}{2}\|z_k-Hv\|^2_{\tilde{R}(v)^{-1}}+\frac{1}{2}\|v\|^2_{P_{k|k-1}^{-1}}+\frac{1}{2}\log(|I+R_k^{-1}\Sigma_y(v)|)
+					\tilde\ell(v)=\frac{1}{2}\|z_k-Hv\|^2_{\tilde{R}(v)^{-1}}+\frac{1}{2}\|v\|^2_{P_{k|k-1}^{-1}}+\frac{1}{2}\log|I+R_k^{-1}\Sigma_y(v)|
 				\end{equation*}
 					$$
 				</div>
@@ -1299,6 +1570,9 @@ $$
 				</section>
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Conclusions</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 									<ul>
@@ -1308,8 +1582,7 @@ $$
 										<li class="fragment">Variation-dependent noise structure to
 											account for the model uncertainty;</li>	
 
-											<li class="fragment">Inaction
-												region depending on measurement residue;</li>
+							
 
 												<li class="fragment"> Optimal global
 													solution to the problem;</li>
@@ -1325,6 +1598,9 @@ $$
 				</section>
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Publications</h2></div>
 					<div class="slide-content" style="text-align: justify;padding-top: 0em;transform: scale(0.75) translate(-6em,-1em);width: 35em;">
 <ul>
@@ -1336,7 +1612,7 @@ $$
 	</li>
 </ul>
 </div>
-<div class="fragment" style="transform: translate(1em,-1.5em);text-align: justify; width: 26em;">Moreover, this work's main contributions are incorporated in a <b>full paper</b> to be submitted in a periodic.</div>
+<div class="fragment" style="transform: translate(1em,-1.5em);text-align: justify; width: 26em;">Moreover, this work's main contributions are incorporated in a <b>full paper</b> to be submitted in a periodic journal.</div>
 			<div style="text-align: justify;padding-top: 0em;transform: scale(0.75) translate(-5em,-2em);width: 35em;">
 					<ul>
 						<li class="fragment">
@@ -1348,6 +1624,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Future works</h2></div>
 					<div class="slide-content" style="padding-top: 1em;font-size: 95%;">
 						<ul>
@@ -1379,6 +1658,9 @@ $$
 
 
 				<section>
+					<aside class="notes">
+					</aside>
+
 					<div class="slide-title"><h2>Acknowledgements</h2></div>
 					<div class="slide-content" style="padding-top: 0em;padding-left: 1em;">
 						<div class="fragment" style="text-align: center;transform: translate(1em,-1em);">
@@ -1388,7 +1670,7 @@ $$
 					   <div class="fragment"  style="text-align: center;">
 						<span><b>Supervisor (Prof. João Bosco)</b> <br>and <b>co-supervisor (Prof. Rafael Souto)</b>.</span>
 						<Br><br>
-						<span class="fragment" ><b>Family</b> and <b>friends</b> that directly or indirectly helped me to be here today.</span>
+						<span class="fragment" ><b>Family</b> and <b>friends</b> that helped me to be here today.</span>
 					   </div>
 					</div>
 				</section>
@@ -1403,11 +1685,11 @@ $$
 
 		
 
-		<script src="../dist/reveal.js"></script>
-		<script src="../plugin/notes/notes.js"></script>
-		<script src="../plugin/markdown/markdown.js"></script>
-		<script src="../plugin/highlight/highlight.js"></script>
-		<script src="../plugin/math/math.js"></script>
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
