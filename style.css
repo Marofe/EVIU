@@ -60,11 +60,11 @@
 }
 .logo2 {
     display: block;
-    width: 7em;
+    width: 8em;
     height: 4em;
     position: absolute;
     float: right;
-    right: 0em;
+    right: -0.3em;
 }
 
 .logo img, .logo2 img {
@@ -106,6 +106,9 @@
 
 .redSquare {
     display: block;border: .1em solid red;position: absolute;width: 10em;height: 8em;
+}
+.greenSquare {
+    display: block;border: .1em solid greenyellow;position: absolute;width: 10em;height: 8em;
 }
 .imgContainer {
     text-align: center;

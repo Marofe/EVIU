@@ -125,7 +125,7 @@ throughline is, state what’s the aim of the presentation-->
 						<div class="fragment" data-fragment-index="1">
 						where $\varepsilon$ stands for the <b>meaurement noise</b>. 
 					</div>
-					<div class="fragment redSquare" data-fragment-index="1" style="top:5.4em;left:17.7em;width:1em;height:1em;"></div>
+					<div class="fragment redSquare" data-fragment-index="1" style="top:5.4em;left:17.75em;width:1em;height:1em;"></div>
 					<div class="fragment">
 						Best "guess" for $x$ is found by, 
 						
@@ -212,7 +212,7 @@ And we can use different approaches to define this modeling uncertainty. For exa
 							$$
 						<span class="fragment" data-fragment-index="1">where $\xi$ stands for the <b>meaurement modeling uncertainty</b>.</span>
 						<br>
-						<div class="fragment redSquare" style="top:2.4em;left:16.7em;width: 1em;height: 1.4em;" data-fragment-index="1"></div>
+						<div class="fragment redSquare" style="top:2.3em;left:16.7em;width: 1em;height: 1.4em;" data-fragment-index="1"></div>
 						<div class="fragment">
 						<p>Different approaches can be utilized to define $\xi$, for example:</p>
 						<ul>
@@ -263,7 +263,7 @@ In addition, we also assume that the modeling uncertainty is a variation-depende
 					<div data-fragment-index="1" class="fragment">
 					where $v\in\mathbb{R}^n$ is the <b>estimation variation</b>. 
 				</div>
-				<div class="fragment fade-down redSquare" data-fragment-index="1" style="top:4em;left:17.2em;width: 1em;height: 1.5em;"></div>
+				<div class="fragment fade-down redSquare" data-fragment-index="1" style="top:3.9em;left:17.2em;width: 1em;height: 1.3em;"></div>
 						    <span class="fragment"  data-fragment-index="2">Accordingly, the measurement model is
 							$$
 							\begin{equation}
@@ -274,7 +274,7 @@ In addition, we also assume that the modeling uncertainty is a variation-depende
 					We also assume that: 
 					$ \xi \sim p(\xi|v)$ is a <b>variation-dependent</b> r.v.</span>
 				</div>
-				<div class="fragment fade-up redSquare" data-fragment-index="2" style="top:12.1em;left:9.2em;width: 12em;height: 1.5em;border-color: green;"></div>
+				<div class="fragment fade-up redSquare" data-fragment-index="2" style="top:12.1em;left:9.2em;width: 12em;height: 1.5em;border-color: greenyellow;"></div>
 
 				</section>
 
@@ -641,8 +641,8 @@ So, the strategy here is to write our problem as a concave objective function su
 						&&\text{s.t.}\quad \frac{1}{2}c \ge q(v)
 						\end{aligned}
 						$$
-						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:3.4em;left:4em;width: 9em;height: 5em;"></div>
-						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:3.4em;left:17em;width: 10em;height: 8em;"></div>
+						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:2.85em;left:4em;width: 9em;height: 5em;"></div>
+						<div class="fragment current-visible" style="display: block;border: .1em solid red;position: absolute;top:2.85em;left:17.2em;width: 10em;height: 8em;"></div>
 					</div>
 				
 
@@ -660,7 +660,7 @@ So, the strategy here is to write our problem as a concave objective function su
 						
 						<div style="transform:scale(0.8)">
 						$$\begin{aligned}
-    &\frac{1}{2}c - \frac{1}{2}\|\tilde z-\tilde H v\|_{\mathcal{\tilde{R}}(v)^{-1}}^2-\frac{1}{2}\|v\|_{P_0^{-1}}^2\ge 0\\
+    &\Rightarrow\frac{1}{2}c - \frac{1}{2}\|\tilde z-\tilde H v\|_{\mathcal{\tilde{R}}(v)^{-1}}^2-\frac{1}{2}\|v\|_{P_0^{-1}}^2\ge 0\\
     
 \end{aligned}$$
 						</div>
@@ -703,6 +703,7 @@ Unfortunately, this is still not a linear matrix inequality due to the presence 
     u-w & 0 & P_0
     \end{bmatrix}\succeq 0
 \end{aligned}$$</div>
+<div class="fragment redSquare" style="top:6.25em;left:18.3em;width: 2.85em;height: 1.2em;"></div>
 <div class="fragment lightup" style="transform:translate(-1em,-1em);background-color: red;color:white;"><center>It is not an LMI yet!</div>
 
 				</section>
@@ -730,6 +731,7 @@ Unfortunately, this is still not a linear matrix inequality due to the presence 
     \end{bmatrix}\succeq 0
 \end{aligned}$$</div>
 </span>
+<div class="fragment redSquare" style="top:9.15em;left:17.6em;width: 2.96em;height: 1.2em;border-color: greenyellow;"></div>
 <div class="fragment lightup" style="transform:translate(-1em,-2em);background-color: greenyellow;"><center>It is an LMI!</div>
 					</div>
 	
@@ -746,7 +748,7 @@ And as mentioned before, this brings us to the conclusion that this problem has 
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
-						$\Rightarrow$As result, the <b>augmented problem</b> becomes,
+						$\Rightarrow$As result, the <b>augmented problem</b> is,
 						<div style="transform: scale(0.8) translate(-4em,-2em);">
 						$$
 						\begin{aligned}
@@ -760,9 +762,11 @@ And as mentioned before, this brings us to the conclusion that this problem has 
 						&u\ge 0,w\ge 0.
 						\end{aligned}
 						$$
-						<div class="fragment lightup" style="transform: translate(3em,-1em);">
-						$\Rightarrow $This problem has a <b class="underline">unique minimum</b> $(c^*,u^*,w^*)$.
+						<div class="fragment redSquare current-visible" style="top:-0.5em;left:2.7em;width: 20em;height: 3.5em;"></div>
+						<div class="fragment redSquare current-visible" style="top:4.2em;left:0em;width: 36.2em;height: 7em;"></div>
 					</div>
+					<div class="fragment fade-up lightup" style="position: absolute;top:11.5em;width: 25em;">
+						$\Rightarrow $This problem has a <b class="underline">unique minimum</b> $(c^*,u^*,w^*)$.
 					</div>
 				</div>	
 
@@ -779,19 +783,19 @@ If this was the case, we could always define new slack variables u and w as give
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 
-					$\Rightarrow $Lets show that $|u^*-w^*|=u^*+w^*$.
+					$\Rightarrow $Lets show that $|v^*|=|u^*-w^*|=u^*+w^*$.
 <br>				
 				
 					<div class="fragment" data-fragment-index="1">
-						Given the <b>unique minimum</b> $(c^*,u^*,w^*)$ to the <b>augmented problem</b>, and suppose that $|u^*-w^*|&#x3c;u^*+w^*$ (strictly) then by defining 
+						Suppose that $$|v^*|=|u^*-w^*|&#x3c;u^*+w^*$$  then by defining 
 </div>
-<div class="fragment redSquare" data-fragment-index="2"  style="top: 4em;left: 12.5em;height:1.5em;width: 10.5em;"></div>
+<div class="fragment greenSquare current-visible" data-fragment-index="2"  style="top: 0.7em;left: 8.2em;height:2em;width: 14.2em;"></div>
+<div class="fragment redSquare" data-fragment-index="3"  style="top: 4.5em;left: 8em;height:2em;width: 14.5em;"></div>
 <div class="fragment" style="transform: scale(0.85) translate(0,-1.5em);">
 	$$
 	\begin{align}
-	v^*&=u^*-w^*,\tag{15a}\\
-	\bar{u}&=\frac{|v^*|+v^*}{2},\tag{15b}\\
-	\bar{w}&=\frac{|v^*|-v^*}{2}.\tag{15c}
+	\bar{u}&=\frac{|v^*|+v^*}{2},\tag{15a}\\
+	\bar{w}&=\frac{|v^*|-v^*}{2},\tag{15b}
 \end{align} 
 $$
 </div>
@@ -818,15 +822,17 @@ The following is true,
 	\end{align}
 	$$
 </div>
-<div class="fragment redSquare" style="top: 4.5em;left:6em;height: 2.5em;width: 18.5em;" data-fragment-index="1"></div>
-<div class="fragment redSquare" style="top: 1.9em;left:6em;height: 2.5em;width: 18.5em;" data-fragment-index="2"></div>
-<div class="fragment current-visible" data-fragment-index="2" style="transform: scale(0.95) translate(0,-3em);">
-	which shows that there exist another <b>feasible solution</b> $(c^*,\bar{u},\bar{w})$ that sastifies $|\bar{u}-\bar{w}|=\bar{u}+\bar{w}$ and $\langle\bar{u},\bar{w}\rangle=0$.
+<div class="fragment redSquare current-visible" style="top: 2em;left:6em;height: 2.5em;width: 18.5em;" data-fragment-index="1"></div>
+<div class="fragment redSquare" style="top: 4.5em;left:6em;height: 2.5em;width: 18.5em;" data-fragment-index="2"></div>
+
+<div class="fragment current-visible" data-fragment-index="3" style="transform: scale(0.95) translate(0,-3em);">
+	which shows that there exist another <b>feasible solution</b> $(c^*,\bar{u},\bar{w})$ that sastifies $|\bar{u}-\bar{w}|=\bar{u}+\bar{w}$!
 </div>
-<div class="fragment lightup" data-fragment-index="3" style="transform: scale(0.9) translate(0,-3em);">
+<div class="fragment redSquare current-visible" style="top: 12em;left:6.7em;height: 1.7em;width: 8.6em;" data-fragment-index="3"></div>
+<div class="fragment lightup current-visible" data-fragment-index="4" style="transform: scale(0.9) translate(0,-3em);">
 	It is a <b class="underline" style="color: red;">contradiction</b> because $\mathbf{1}^\trp (\bar{u}+\bar{w})<\mathbf{1}^\trp (u^*+w^*)$!
 </div>
-<div class="fragment redSquare" style="top: 7.1em;left:6em;height: 2.5em;width: 18.5em;border-color:rgb(1, 251, 1)" data-fragment-index="4"></div>
+<div class="fragment redSquare" style="top: 7.1em;left:6em;height: 2.5em;width: 18.5em;border-color:rgb(1, 251, 1)" data-fragment-index="5"></div>
 
 				
 				</div>	
@@ -834,7 +840,46 @@ The following is true,
 				</section>
 
 
+				<section>
+					<aside class="notes">
+						And because the equality holds in the absolute value function, in the minimum point, the augmented cost function becomes the original cost function as we can replace the summation of u and w by the absolute value of v.
+						
+					</aside>
 
+					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
+					<div class="slide-content" style="padding-top: 1em;">
+Therefore, one concludes that the minimum must satisfy
+$$
+\tag{17}
+|u^*-w^*|=u^*+w^*=|v^*|
+$$
+and, consequently, it correspond to the <b>minimum of the original cost function</b>,
+
+				<div class="fragment current-visible" data-fragment-index="2" style="transform: scale(0.8) translate(-4em,-1em);">
+					$$
+					\begin{equation*}
+					\begin{split}
+						\Rightarrow \tilde{\ell}^a(u^*,w^*)=\frac{1}{2}\|\tilde z-\tilde{H}(u^*-w^*)\|_{\mathcal{\tilde{R}}(u^*-w^*)^{-1}}^2+\frac{1}{2}\|u^*-w^*\|_{P_0^{-1}}^2\\+\frac{1}{2}\log|I+\mathcal{R}^{-1}\sigma\diag(u^*+w^*)\sigma^\trp|		
+					\end{split}
+				   \end{equation*}
+				   $$
+				</div>
+				<div class="fragment redSquare current-visible" data-fragment-index="2" style="top:11.7em;left:21.2em;height: 1.5em;width: 4em;"></div>
+
+				<div class="fragment current-visible" data-fragment-index="3" style="transform: scale(0.8) translate(-4em,-1em);">
+					$$
+					\begin{split}
+					\Rightarrow \tilde{\ell}^a(u^*,w^*)=\frac{1}{2}\|\tilde z-\tilde{H}(u^*-w^*)\|_{\mathcal{\tilde{R}}(u^*-w^*)^{-1}}^2+\frac{1}{2}\|u^*-w^*\|_{P_0^{-1}}^2\\+\frac{1}{2}\log|I+\mathcal{R}^{-1}\sigma\diag(|v^*|)\sigma^\trp|
+			   		\end{split}
+					$$
+				</div>
+				<div class="fragment redSquare current-visible" data-fragment-index="3" style="top:11.7em;left:23.4em;height: 1.3em;width: 1.5em;"></div>
+				
+
+
+				</div>	
+				
+				</section>
 
 
 
@@ -844,6 +889,14 @@ The following is true,
 					<aside class="notes">
 						And to illustrate that numerically, we took that scalar example, and using matlab, we implemented this constrained augmented problem for different values of C. And as expected, as we decrease the value of C the feasible set associated with the problem shrinks. For each value, the minimum is indeed unique and always in the boundary of the positive octant.
 
+						<br><br>
+						Geometrically,  this means that once we find the minimum solution in the augmented space, this point corresponds to exactly the minimum point in the original space.
+					
+						So this was our first solution. But this is still a nonlinear optimization problem because of the logarithm part.<br><br>
+
+						It would be nice to solve this problem using linear optimization tools. <br><br>
+					
+		
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
@@ -900,125 +953,18 @@ The following is true,
 				\end{aligned}
 					$$
 				</div>
+				<div style="position: absolute;top:0em;left:3em" class="fragment" data-fragment-index="7" >
+					<img src="images/minimum_original_cost_arrow.png" style="width: 25em;" />
+				</div>
+				<div class="fragment lightup" style="background-color: red;transform:translate(-1em,5em);color:white">Still a non-linear optimization problem!</div>
+			
 				
 				</center>
 					</div>
 
 
 				</section>
-
-
-
-
-
-
-				<section>
-					<aside class="notes">
-						And because the equality holds in the absolute value function, in the minimum point, the augmented cost function becomes the original cost function as we can replace the summation of u and w by the absolute value of v.
-						
-					</aside>
-
-					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
-					<div class="slide-content" style="padding-top: 1em;">
-Therefore, one concludes that the minimum must satisfy
-$$
-\tag{17}
-|u^*-w^*|=u^*+w^*=|v^*|
-$$
-and, consequently, it correspond to the <b>minimum of the original cost function</b>,
-
-				<div class="fragment current-visible" data-fragment-index="2" style="transform: scale(0.8) translate(-4em,-1em);">
-					$$
-					\begin{equation*}
-					\begin{split}
-						\Rightarrow \tilde{\ell}^a(u^*,w^*)=\frac{1}{2}\|\tilde z-\tilde{H}(u^*-w^*)\|_{\mathcal{\tilde{R}}(u^*-w^*)^{-1}}^2+\frac{1}{2}\|u^*-w^*\|_{P_0^{-1}}^2\\+\frac{1}{2}\log|I+\mathcal{R}^{-1}\sigma\diag(u^*+w^*)\sigma^\trp|		
-					\end{split}
-				   \end{equation*}
-				   $$
-				</div>
-				<div class="fragment redSquare current-visible" data-fragment-index="2" style="top:11.7em;left:21.2em;height: 1.5em;width: 4em;"></div>
-
-				<div class="fragment current-visible" data-fragment-index="3" style="transform: scale(0.8) translate(-4em,-1em);">
-					$$
-					\begin{split}
-					\Rightarrow \tilde{\ell}^a(u^*,w^*)=\frac{1}{2}\|\tilde z-\tilde{H}(u^*-w^*)\|_{\mathcal{\tilde{R}}(u^*-w^*)^{-1}}^2+\frac{1}{2}\|u^*-w^*\|_{P_0^{-1}}^2\\+\frac{1}{2}\log|I+\mathcal{R}^{-1}\sigma\diag(|v^*|)\sigma^\trp|
-			   		\end{split}
-					$$
-				</div>
-				<div class="fragment redSquare current-visible" data-fragment-index="3" style="top:11.7em;left:23.4em;height: 1.3em;width: 1.5em;"></div>
-				
-
-
-				</div>	
-				
-				</section>
-
-
-
-				
-
-				
-
-
-				<section>
-					<aside class="notes">
-						Geometrically,  this means that once we find the minimum solution in the augmented space, this point corresponds to exactly the minimum point in the original space.
-					
-						So this was our first solution. But this is still a nonlinear optimization problem because of the logarithm part.<br><br>
-
-						It would be nice to solve this problem using linear optimization tools. <br><br>
-					
-					</aside>
-					
-
-					<div class="slide-title"><h2>EVIU-MAP: First solution</h2></div>
-					<div class="slide-content" style="padding-top: 0em;">
-						<div style="position: absolute;top:0em;left:5em" class="fragment current-visible" data-fragment-index="5" >
-							<img src="images/regionAugmented4.png" style="width: 20em;" />
-							<img src="images/arrow.svg" style="position:absolute;width: 4em;left:3.2em;top:9.2em;transform: rotate(-80deg);" />
-						</div>
-						
-						<div style="position: absolute;top:0em;left:3em" class="fragment" data-fragment-index="7" >
-							<img src="images/minimum_original_cost_arrow.png" style="width: 25em;" />
-						</div>
-						<div class="fragment lightup" style="background-color: red;transform:translate(-1em,5em);color:white">Still non-linear optimization problem!</div>
-					</div>
-		
-
-				</section>
-
-
-
-				<!-- <section>
-					<div class="slide-title"><h2>EVIU-MAP: Corollary</h2></div>
-					<div class="slide-content" style="padding-top: 0em;">
-						<div class="lightup" style="text-align: justify;height: 12.3em;transform: translate(0,-.3em);">
-							Corollary 4.3.1.1 <br>The global minimum of
-							$\tilde{\ell}(v)$
-							can be reached by
-solving the problem 
-<div style="transform: scale(0.7) translate(-4em,-3em);">
-$$
-\begin{aligned}
-						
-						\min_{c, u,w} &\quad \frac{1}{2}c+\underbrace{\frac{N}{2}\log[I+R^{-1}\sigma\diag(u+w)\sigma^\trp]}_{f^a(u,w)}\\
-						\text{s.t.} & \begin{bmatrix}
-						c & (\tilde{z}-\tilde{H}(u-w))^\trp & (u-w)^\trp \\
-						(\tilde{z}-\tilde{H}(u-w)) & \mathcal{R}+I_N\otimes(\sigma\diag(u+w)\sigma^\trp) & 0 \\
-						u-w & 0 & P_0
-						\end{bmatrix}\succeq 0,\\
-						&u\ge 0,w\ge 0.
-						\end{aligned}
-$$
-</div>
-						</div>
-						<div class="fragment redSquare" style="top:4.5em;left:7.2em;height: 3.6em;width: 12em;"></div>
-					</div>
-		
-
-				</section> -->
-
-				
+			
 				<section>
 					<aside class="notes">
 In fact, we also discovered a second solution that uses only linear optimization tools and also provides us with the global minimum of the problem.<Br><br>
@@ -1026,11 +972,11 @@ In fact, we also discovered a second solution that uses only linear optimization
 This second solution replaces the logarithm part with a piecewise linear approximation, as illustrated here. But, instead of solving a single problem, we solve a sequence of convex subproblems using a majorization-minimization scheme.
 					</aside>
 
-					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
+					<div class="slide-title"><h2>Log Approximation</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 				<center>
 						<img class="fragment current-visible" src="images/logTraceApprox.png" style="width: 25em;transform: translate(0.2em,0);"/>
-				
+						<img class="fragment current-visible" src="images/logTraceApprox2.gif" style="width: 20em;transform: translate(0.2em,0);"/>
 					</center>
 					</div>
 				</section>
@@ -1069,9 +1015,11 @@ $$
 of the above problem.
 						</div>
 					</div>
+					<div class="fragment greenSquare current-visible" style="top:6.1em;left:6.5em;height: 2em;width: 10em;"></div>
 					
-					<div class="fragment redSquare" style="top:6.5em;left:8.2em;height: 1.2em;width: 2.5em;"></div>
 					<div class="fragment redSquare" style="top:12.4em;left:14.5em;height: 1.2em;width: 6.8em;"></div>
+
+					<div class="fragment redSquare" style="top:6.5em;left:8.2em;height: 1.2em;width: 2.5em;"></div>
 
 				</section>
 
@@ -1081,7 +1029,7 @@ of the above problem.
 						Here we illustrate the behavior of this linear approximation after each iteration of the algorithm. So, after a few iterations, we expect the linear approximation to become closer enough to the log term.
 					</aside>
 
-					<div class="slide-title"><h2>EVIU-MAP: Second solution</h2></div>
+					<div class="slide-title"><h2>Iteration</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 				<center>
 						<img class="fragment current-visible" src="images/logTraceApprox0.png" style="width: 19em;"/>
@@ -1104,7 +1052,7 @@ And, after each iteration, what is happening is that we are getting the minimum 
 And this repeats until we arrive at a fixed point, where the minimum of the surrogate function equals the reference point.<br><br>
 					</aside>
 
-					<div class="slide-title"><h2>EVIU-MAP: MM Optimality</h2></div>
+					<div class="slide-title"><h2>Majorization-Minimization</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
 		$\Rightarrow $<b>Surrogate function</b>
 		<div style="transform: scale(0.8) translate(-2em,-1em);">
@@ -1145,23 +1093,35 @@ Thus, the fixed point is also a stationary point of the original cost function.
 					</aside>
 
 					<div class="slide-title"><h2>EVIU-MAP:  MM Optimality</h2></div>
-					<div class="slide-content" style="padding-top: 1em;">
+					<div class="slide-content" style="padding-top: 0em;">
 						Let $\bar{v}$ be the fixed point, i.e., $\bar{v}=\mathcal{M}(\bar{v})$.
-						<div class="lightup">
-			$0 \in \partial\bar\ell_{\bar v}(\bar v)$ and both gradients $\partial \tilde \ell$ and $\partial \bar \ell$ coincide at $\bar v$.
+						<div class="fragment current-visible">
+							$$
+							\tilde{\ell}(v)=q(v)+\frac{N}{2}\log|I+R^{-1}\sigma\diag(|v|)\sigma^\trp|
+							$$
+							and 
+							$$
+							\bar{\ell}_{\bar{v}}(v)=q(v)+\frac{N}{2}\tr[\tilde{R}(\bar{v})^{-1}\sigma\diag(|v|)\sigma^\trp]+a_{v^j}
+							$$
+						</div>
+						<div class="fragment">
+							$$
+							\partial_v\tilde{\ell}(\bar{v})=\partial_vq(\bar{v})+\partial_v\left(\log|I+R^{-1}\sigma\diag(|\bar{v}|)\sigma^\trp|\right)
+							$$
+							and 
+							$$
+							\partial_v\bar{\ell}_{\bar{v}}(\bar{v})=\partial_vq(\bar{v})+\partial_v\left(\frac{N}{2}\tr[\tilde{R}(\bar{v})^{-1}\sigma\diag(|v|)\sigma^\trp]\right)
+							$$
+						</div>
+						<div class="fragment greenSquare" style="top:2em;left:12em;width: 16em;height: 2.4em;"></div>
+						<div class="fragment greenSquare" style="top:7em;left:12em;width: 16.5em;height: 3.2em;"></div>
+						<div class="fragment lightup current-visible">
+			Both gradients $\partial \tilde \ell$ and $\partial \bar{\ell}_{\bar{v}}$ coincide at $\bar v$.
 		</div>
-		Because,
-		<div style="transform: scale(0.85) translate(-1em,0);" class="fragment">
-		$$
-		\partial_v \log|I+R^{-1}\sigma\diag(|v|)\sigma^\trp|=\partial_v \tr[R(x)^{-1}\sigma\diag(|v|)\sigma^\trp]\Bigl|_{x=v}.
-		$$
-	</div>
-	<span class="fragment">
-			Therefore, one concludes that $\bar{v}$ is also a <b>stationary point</b> of $\tilde{\ell}(v)$.
+
+	<span class="fragment lightup" style="position: absolute;width: 25em;">
+			We conclude that $\bar{v}$ is also a <b class="underline">stationary point</b> of $\tilde{\ell}(v)$.
 		</span>
-		<!-- <span class="fragment">
-			$\Rightarrow$ Let $(\bar{u},\bar{w})$ be the <b>slack-variables</b> such as $\bar{v}=\bar{u}-\bar{w}$.
-		</span> -->
 		</div>
 				</section>
 
@@ -1175,20 +1135,34 @@ Thus, the fixed point is also a stationary point of the original cost function.
 
 					<div class="slide-title"><h2>EVIU-MAP:  MM Optimality</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
-						To conclude the global optimality, consider the <b>augmented version</b> of both <b>surrogate</b> and <b>original cost</b> function, 
-						<div style="transform: scale(0.9) translate(-1em,-.5em);">
+					<b>Augmented version</b> of both <b>surrogate</b> and <b>original cost</b> function, 
+						<div style="transform: translate(-1em,-.5em);">
 						$$
-						\tilde{\ell}^a(u,w)=q^a(u,w)+f^a(u,w)
+						\tilde{\ell}^a(u,w)=q^a(u,w)+\frac{N}{2}\log|I+R^{-1}\sigma\diag(u+w)\sigma^\trp|
 						$$
 						and 
 						$$
-						\bar{\ell}^a_x(u,w)=q^a(u,w)+g_x^a(u,w)
+						\bar{\ell}^a_{\bar{v}}(u,w)=q^a(u,w)+\frac{N}{2}\tr[\tilde{R}(\bar{v})^{-1}\sigma\diag(u+w)\sigma^\trp]
 						$$
 					</div>
 						<div class="fragment lightup" style="transform: translate(0,-1em);">
 							$\Rightarrow \nabla \tilde{\ell}^a(\bar{u},\bar{w})=\nabla\bar{\ell}^a(\bar{u},\bar{w})=0$
 						</div>
 						</div>
+						<div class="fragment greenSquare" style="top:4.4em;height: 3em;width: 28.5em;"><div style="position: absolute;top:3em;left:7em;color: greenyellow;text-shadow: 1px 1px 2px gray;">It has only a one stationary point!</div></div>
+				</section>
+
+				<section>
+					<aside class="notes">
+					</aside>
+
+					<div class="slide-title"><h2>EVIU-MAP:  Inaction</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<center>
+					<img src="images/inaction.png" style="width: 17em;"/>
+				</center>
+						</div>
+					
 				</section>
 
 
@@ -1281,6 +1255,10 @@ An important aspect is that the problem becomes quite simple if we switch the lo
 				</section>
 
 
+				
+
+
+
 				<section>
 					<aside class="notes">
 						For linear measurement models, the EVIU-Jensen cost has this format, and we can show that this cost function is convex as long as the covariance matrix dependent on v is also convex, which is great news. That means we can provide a much simpler approximation cost function to our original problem. 
@@ -1290,22 +1268,43 @@ Here we compare this upper bound given by Jensen's inequality with the original 
 
 					<div class="slide-title"><h2>EVIU-Jensen</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
-	<div style="transform: scale(0.8) translate(-3em,-1em);">
+					<div class="fragment current-visible lightup" style="padding: 0;">
 	$$
-	\begin{align*}
-\bar{J}(v) &:=
-\frac{1}{2}\sum_{k=1}^N \|z_k-Hv\|^2_{R^{-1}_k}+\frac{1}{2}\|v\|^2_{P_0^{-1}}+\frac{1}{2}\tr[\mathcal{R}^{-1}\tilde{\Sigma}(v)],
-\end{align*}
+	\scriptsize
+	\tag{20}
+\bar{J}(v) :=
+\frac{1}{2}\sum_{k=1}^N \|z_k-Hv\|^2_{R^{-1}_k}+\frac{1}{2}\|v\|^2_{P_0^{-1}}+\frac{1}{2}\tr[\mathcal{R}^{-1}\tilde{\Sigma}(v)]
 $$
 </div>
 <div class="fragment" style="text-align: center;">
-	<img src="images/comparison_eviu_vs_jensen.png" style="width: 15em;transform: translate(0,-3em);"/>
+	<img src="images/comparison_eviu_vs_jensen.png" style="width: 19em;"/>
 </div>
-<div class="fragment lightup" style="position: absolute;top:5em;left:1em;width: 25em;">Section 4.4</div>
 					</div>
 					
 				</section>
 
+
+				<section>
+					<aside class="notes">
+					</aside>
+
+					<div class="slide-title"><h2>EVIU-Jensen</h2></div>
+					<div class="slide-content" style="padding-top: 0em;">
+						<center>
+	<img class="fragment current-visible" src="images/inaction_jensen.png" style="width: 16em;"/>
+</center>				
+<div class="fragment">
+	<p>$\Rightarrow$Properties:</p>
+<ul>
+	<li class="fragment"><b>Recursive</b> structure;</li>
+	<li class="fragment">The <b>LASSO</b> is a particular case;</li>
+	<li class="fragment">Bayesian interpretation using <b>Laplace Distribution</b> as prior;</li>
+	<li class="fragment"><b>Minimax</b> problem using <b>norm bounded</b> uncertainty;</li>
+</ul>
+</div>
+</div>	
+<div class="fragment lightup" style="position: absolute;top:12em;left:1em;width: 25em;">Section 4.4</div>
+				</section>
 
 				<section>
 					<aside class="notes">
@@ -1318,11 +1317,11 @@ $$
 					<div class="slide-title"><h2>Applications</h2></div>
 					<div class="slide-content" style="padding-top: 1em;">
 						<ul>
-							<li class="fragment" data-fragment-index="1">Medicine: Tumor Age and Growth Estimation;</li>
+							<li class="fragment" data-fragment-index="1"><b>Medicine:</b> Tumor Age and Growth Estimation;</li>
 							
-							<li class="fragment" data-fragment-index="2">Finance: Markowitz Portfolio Management;</li>
+							<li class="fragment" data-fragment-index="2"><b>Finance:</b> Markowitz Portfolio Management;</li>
 							
-							<li class="fragment" data-fragment-index="3">Robust Stochastic filtering.</li>
+							<li class="fragment" data-fragment-index="3"><b>Cautious</b> Stochastic filtering.</li>
 						</ul>
 						<div class="imgContainer" style="padding-left:1.5em ;">
 							<center>
@@ -1348,7 +1347,7 @@ The solution is to employ a population approach to this problem. And this can be
 					</aside>
 
 					<div class="slide-title"><h2>Tumor Age and Growth Estimation</h2></div>
-					<div class="fragment current-visible slide-content" style="padding-top: 0em;">
+					<div class="fragment slide-content" data-fragment-index="1" style="padding-top: 0em;">
 					$\Rightarrow $ Gompertz Model
 					$$
 					\begin{equation}
@@ -1358,8 +1357,18 @@ The solution is to employ a population approach to this problem. And this can be
 					$$
 					$\Rightarrow$ Parameters to be estimated: $$(K\to \text{Capacity},\beta\to\text{Growth rate})$$
 					</div>
-					<div class="fragment slide-content" style="padding-top: 1em;">
-						$\Rightarrow $ Gompertz Model
+					<div class="fragment redSquare current-visible" data-fragment-index="2" style="top:10.4em;left:6em;width: 8.5em;height: 2em;"></div>
+					<div class="fragment redSquare current-visible" data-fragment-index="2" style="top:4.9em;left:9.2em;width: 1.3em;height: 1.5em;"></div>
+					<div class="fragment redSquare current-visible" data-fragment-index="2" style="top:5.7em;left:16.6em;width: 1.3em;height: 1.5em;"></div>
+					<div class="fragment redSquare current-visible" data-fragment-index="3" style="top:10.4em;left:14.6em;width: 10em;height: 2em;"></div>
+					<div class="fragment redSquare current-visible" data-fragment-index="3" style="top:5em;left:22.55em;width: 1em;height: 1.25em;"></div>
+			
+
+					</section>
+
+					<section>
+						<div class="slide-title"><h2>Tumor Age and Growth Estimation</h2></div>
+						$\Rightarrow $ Gompertz Model Modified
 						$$
 						\begin{equation}
 						\tag{20}
@@ -1367,9 +1376,12 @@ The solution is to employ a population approach to this problem. And this can be
 						\end{equation}
 						$$
 						$\Rightarrow$ Parameters to be estimated: $$(K\to \text{Capacity},\beta\to\text{Growth rate},t_{\text{ref}} \to \text{age})$$
-						</div>
+					
+						<div class="fragment redSquare" data-fragment-index="1" style="top:5em;left:23.2em;width: 1.5em;height: 1.5em;border-color: greenyellow;"></div>
+						<div class="fragment redSquare" data-fragment-index="1" style="top:10.65em;left:21em;width: 5.5em;height: 1.5em;border-color: greenyellow;"></div>
 						<div class="fragment current-visible lightup" style="background-color: red;color:white">Few measurements available to each individual!</div>
 						<div class="fragment lightup" style="background-color: greenyellow;">Mixed-effect framework!</div>
+
 				</section>
 
 				<section>
@@ -1386,14 +1398,14 @@ And this random effect has a variance given by omega, also known in the literatu
 							Individuals within the population depend on two types of unknown effects: <b class="underline">fixed</b> (i.e., common to all individuals)
 							 and <b class="underline">random</b> (i.e., particular to each population subject).</div>
 							 <p>&nbsp;</p>
-							 <div class="fragment">
+							 <div>
 						$$
 						\begin{equation*}
 						\log(\phi_i)=\log(\mu)+\eta_i,\quad \eta_i\sim\mathcal{N}(0,\Diag(\omega))
 					\end{equation*}
 						$$
 					</div>
-					<div class="fragment current-visible redSquare" style="top:7.8em;left:3.5em;width: 11.5em;height:1.3em;border-color: green;"></div>
+					<div class="fragment current-visible redSquare" style="top:7.8em;left:3.5em;width: 11.5em;height:1.3em;border-color: greenyellow;"></div>
 					<div class="fragment current-visible redSquare" style="top:7.8em;left:9em;width: 3.5em;height:1.3em;">
 					<img src="images/redArrow.svg" style="transform: scale(2) translate(0.8em,0.7em);"/>
 					<div style="color: red;width: 10em;transform: translate(-0.5em,1em);">Fixed effect</div>
@@ -1407,8 +1419,10 @@ And this random effect has a variance given by omega, also known in the literatu
 $$
 \omega \to \text{Variability}
 $$
+<div class="redSquare" style="top:10.35em;left:10.7em;width: 9em;height:1.3em;"></div>
 
 						</div>
+						
 					</div>
 				</section>
 
@@ -1459,7 +1473,7 @@ Most importantly, we also can write this problem as a quadratic optimization in 
 
 					<div class="slide-title"><h2>Markowitz Portfolio</h2></div>
 					<div class="slide-content" style="padding-top: 0em;">
-						<div class="fragment lightup current-visible" data-fragment-index="1">
+						<div class="fragment lightup" data-fragment-index="1">
 						$$
 						\begin{equation}
 						\tag{21}
@@ -1469,8 +1483,21 @@ Most importantly, we also can write this problem as a quadratic optimization in 
 						\end{split}
 						\end{equation}
 						$$
+
+						
+						
 					</div>
-					<div class="lightup fragment current-visible" data-fragment-index="2">
+
+					<div class="fragment redSquare current-visible" data-fragment-index="2" style="top:2em;left:12.2em;width: 2.5em;height: 1.7em;"></div>
+					<div class="fragment redSquare current-visible" data-fragment-index="3" style="top:1.6em;left:15.7em;width: 4.3em;height: 2.5em;"></div>
+					<div class="fragment redSquare current-visible" data-fragment-index="4" style="top:4.6em;left:11.4em;width: 4.3em;height: 1.5em;"></div>
+					</div></section>
+
+					<section>
+						<div class="slide-title"><h2>Markowitz Portfolio</h2></div>
+						<div>
+					
+					<div class="fragment current-visible lightup">
 						$$
 						\begin{equation}
 						\tag{22}
@@ -1482,7 +1509,7 @@ Most importantly, we also can write this problem as a quadratic optimization in 
 						$$
 					</div>
 
-					<div class="lightup fragment" data-fragment-index="3">
+					<div class="lightup fragment current-visible">
 						$$
 						\begin{equation}
 						\tag{23}
@@ -1494,7 +1521,7 @@ Most importantly, we also can write this problem as a quadratic optimization in 
 						\end{equation}
 						$$
 					</div>
-					<div class="fragment" data-fragment-index="4" style="transform: scale(0.8) translate(0,-1em);">
+					<div class="fragment" style="transform: scale(0.8) translate(0,-1em);">
 						$\Rightarrow $<b>Virtual Measurement</b>
 						$$
 						\begin{equation*}
@@ -1511,8 +1538,17 @@ Most importantly, we also can write this problem as a quadratic optimization in 
 \end{equation*}
 $$
 					</div>
-					<div class="fragment fade-down redSquare" data-fragment-index="4" style="top:11.3em;left:5em;height:2.9em"></div>
+					<div class="fragment fade-down redSquare" style="top:3.3em;left:4.5em;height:2.9em"></div>
+					<div class="fragment">
+						$\Rightarrow$ <b>Maximum Likelihood Estimation</b> (MLE) Problem
+						$$
+						\min_x -\log[p(y|x)]
+						$$
+		
+					</div>
+					<div class="fragment fade-down redSquare" style="top:10.3em;left:9.65em;height:2.9em;border-color:greenyellow;"></div>
 						</div>
+						
 				</section>
 
 
