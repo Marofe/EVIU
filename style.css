@@ -108,7 +108,7 @@
     display: block;border: .1em solid red;position: absolute;width: 10em;height: 8em;
 }
 .greenSquare {
-    display: block;border: .1em solid greenyellow;position: absolute;width: 10em;height: 8em;
+    display: block;border: .1em solid rgb(2, 140, 245);position: absolute;width: 10em;height: 8em;
 }
 .imgContainer {
     text-align: center;
